@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Damit /studio (das eingebettete Sanity Studio) beim Reload nicht 404 wirft,
+# da es eine Single-Page-App innerhalb der Astro-Seite ist.
+[[redirects]]
+  from = "/studio/*"
+  to = "/studio/index.html"
+  status = 200

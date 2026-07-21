@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllPages, urlFor } from '../lib/sanity';
+
+const pages = await getAllPages();
+---
+<BaseLayout title="Startseite" description="Inbetween">
+  <main>
+    <h1>Inbetween</h1>
+    <p>{pages.length} Seite(n) aus Sanity geladen.</p>
+    <ul>
+      {pages.map((page) => (
+        <li>
+          <a href={`/${page.slug.current}`}>{page.title}</a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</BaseLayout>
