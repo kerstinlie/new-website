@@ -19,3 +19,7 @@ node_modules/
 .DS_Store
 .vscode/
 *.log
+
+# WordPress-Migration (grosse Rohdaten, nicht ins Repo)
+scripts/wp-migration-data.json
+scripts/.image-cache.json

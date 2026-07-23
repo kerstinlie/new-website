@@ -36,3 +36,29 @@ export async function getPageBySlug(slug: string): Promise<SanityPage | null> {
     { slug }
   );
 }
+
+export type SanityPost = {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  excerpt?: string;
+  mainImage?: any;
+  author?: string;
+  categories?: string[];
+  body?: any;
+  publishedAt?: string;
+  seo?: { metaTitle?: string; metaDescription?: string; noIndex?: boolean };
+};
+
+export async function getAllPosts(): Promise<SanityPost[]> {
+  return sanityClient.fetch(
+    `*[_type == "post" && defined(slug.current)] | order(publishedAt desc){ _id, title, slug, excerpt, mainImage, author, categories, publishedAt }`
+  );
+}
+
+export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
+  return sanityClient.fetch(
+    `*[_type == "post" && slug.current == $slug][0]{ _id, title, slug, excerpt, mainImage, author, categories, body, publishedAt, seo }`,
+    { slug }
+  );
+}

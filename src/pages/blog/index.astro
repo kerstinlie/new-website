@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllPosts, urlFor } from '../../lib/sanity';
+
+const posts = await getAllPosts();
+---
+<BaseLayout title="Blog" description="Alle Blog-Beiträge">
+  <main>
+    <h1>Blog</h1>
+    <ul>
+      {posts.map((post) => (
+        <li>
+          <a href={`/blog/${post.slug.current}`}>
+            {post.mainImage && (
+              <img src={urlFor(post.mainImage).width(400).url()} alt={post.title} />
+            )}
+            <h2>{post.title}</h2>
+            {post.excerpt && <p>{post.excerpt}</p>}
+            <p>
+              {post.author && <span>{post.author}</span>}
+              {post.publishedAt && <time datetime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('de-DE')}</time>}
+            </p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</BaseLayout>
