@@ -36,7 +36,7 @@ sollten manuell im Sanity Studio nachgebaut werden.
 | page | start-free-trial | Start InBetween free trial | form (1x) |
 | page | inbetween-6 | InBetween 6 | aic-image-comparison (1x), hotspot (4x), timeline-widget-addon (1x) |
 | page | free-trial-starten | Free Trial Starten | form (1x) |
-| page | datasheet-automation-akeneo-app | Datasheet Automation App by InBetween &amp; Akeneo | form (1x) |
+| page | datasheet-automation-akeneo-app | Datasheet Automation App by InBetween & Akeneo | form (1x) |
 | post | akeneounlock-paris-2023-en | AKENEO UNLOCK PARIS 2023 | form (1x) |
 | post | akeneo-app-store-digital-publishing | Akeneo App Store: InBetween Digital Publisher App | form (1x) |
 | post | akeneo-unlock-paris-2023 | Akeneo Unlock Paris 2023 | form (1x) |
@@ -59,12 +59,12 @@ sollten manuell im Sanity Studio nachgebaut werden.
 | post | syndigo-connect-europe-amsterdam-powered-by-inbetween | Syndigo Connect Europe​ Amsterdam Event Powered by InBetween | form (1x) |
 | post | webinar-era-of-automation-revolutionizing-catalogs | Webinar: "Era of Automation for Manufacturers: The Case for Revolutionizing Catalogs" | form (1x) |
 | post | webinar-unlock-the-power-of-automated-publishing | Webinar: Unlock the power of Automated Publishing! Transform Raw Data into stunning digital and print Publication. | form (2x) |
-| post | webinar-the-power-of-automated-publishing-effizient-von-rohdaten-zu-hochglanz-publikationen | Webinar: The power of Automated Publishing - Effizient von Rohdaten zu Hochglanz-Publikationen für den Digital- &amp; Print-Kanal | form (2x) |
+| post | webinar-the-power-of-automated-publishing-effizient-von-rohdaten-zu-hochglanz-publikationen | Webinar: The power of Automated Publishing - Effizient von Rohdaten zu Hochglanz-Publikationen für den Digital- & Print-Kanal | form (2x) |
 | post | success-story-swiss-krono | InBetween Success Story: SWISS KRONO | form (2x) |
 | post | akeneo-unlock-on-tour-2024 | Akeneo Unlock on Tour 2024 | form (1x) |
 | post | akeneo-unlock-tour-2024 | Akeneo Unlock Tour 2024 | form (1x) |
 | post | inbetween-case-study-swiss-krono | InBetween Case Study: SWISS KRONO | form (2x) |
-| post | webinar-recap-from-static-to-dynamic-the-power-of-print-automation | InBetween &amp; Ntara Webinar Recap: From Static to Dynamic: The Power of Print Automation | form (1x) |
+| post | webinar-recap-from-static-to-dynamic-the-power-of-print-automation | InBetween & Ntara Webinar Recap: From Static to Dynamic: The Power of Print Automation | form (1x) |
 | post | publikationen-direkt-aus-produktdaten-fur-digital-und-print | Publikationen direkt aus Produktdaten für Digital und Print | timeline-widget-addon (1x) |
 | post | three-ways-to-unlock-radical-roi-from-pim | PIM ROI optimization - 3 ways to unlock radical ROI from PIM | form (1x) |
 | post | webinar-pim-and-automated-publishing-in-retail | Webinar: PIM and Automated Publishing in Retail: Eurogast’s Strategy for Success | form (2x) |
