@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllPosts, getPostBySlug, urlFor } from '../../lib/sanity';
-import { PortableText } from '@portabletext/react';
+import PortableTextBody from '../../components/PortableTextBody';
 
 export async function getStaticPaths() {
   const posts = await getAllPosts();
@@ -20,21 +20,22 @@ if (!post) {
 <BaseLayout
   title={post.seo?.metaTitle || post.title}
   description={post.seo?.metaDescription || post.excerpt}
+  lang="en"
 >
-  <main>
+  <div class="wrapper" style="padding-top: 2rem; padding-bottom: 3rem; max-width: 760px;">
     {post.mainImage && (
-      <img src={urlFor(post.mainImage).width(1200).url()} alt={post.title} />
+      <img src={urlFor(post.mainImage).width(1200).url()} alt={post.title} style="border-radius: 8px; margin-bottom: 1.5rem;" />
     )}
     <h1>{post.title}</h1>
-    <p>
+    <p style="color: var(--color-text-muted); font-size: 0.9rem;">
       {post.author && <span>{post.author}</span>}
-      {post.publishedAt && <time datetime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('de-DE')}</time>}
+      {post.publishedAt && <time datetime={post.publishedAt}> · {new Date(post.publishedAt).toLocaleDateString('de-DE')}</time>}
       {post.categories && post.categories.length > 0 && (
         <span> — {post.categories.join(', ')}</span>
       )}
     </p>
     <article>
-      <PortableText value={post.body} client:load />
+      <PortableTextBody value={post.body} client:load />
     </article>
-  </main>
+  </div>
 </BaseLayout>

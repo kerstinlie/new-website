@@ -18,6 +18,7 @@ export type SanityPage = {
   _id: string;
   title: string;
   slug: { current: string };
+  language?: 'en' | 'de';
   heroImage?: any;
   body?: any;
   publishedAt?: string;
@@ -26,13 +27,13 @@ export type SanityPage = {
 
 export async function getAllPages(): Promise<SanityPage[]> {
   return sanityClient.fetch(
-    `*[_type == "page" && defined(slug.current)]{ _id, title, slug, heroImage, body, publishedAt, seo }`
+    `*[_type == "page" && defined(slug.current)]{ _id, title, slug, language, heroImage, body, publishedAt, seo }`
   );
 }
 
 export async function getPageBySlug(slug: string): Promise<SanityPage | null> {
   return sanityClient.fetch(
-    `*[_type == "page" && slug.current == $slug][0]{ _id, title, slug, heroImage, body, publishedAt, seo }`,
+    `*[_type == "page" && slug.current == $slug][0]{ _id, title, slug, language, heroImage, body, publishedAt, seo }`,
     { slug }
   );
 }

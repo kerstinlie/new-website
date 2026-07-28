@@ -4,25 +4,25 @@ import { getAllPosts, urlFor } from '../../lib/sanity';
 
 const posts = await getAllPosts();
 ---
-<BaseLayout title="Blog" description="Alle Blog-Beiträge">
-  <main>
+<BaseLayout title="Blog" description="Alle Blog-Beiträge" lang="en">
+  <div class="wrapper" style="padding-top: 2rem; padding-bottom: 3rem;">
     <h1>Blog</h1>
-    <ul>
+    <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
       {posts.map((post) => (
         <li>
-          <a href={`/blog/${post.slug.current}`}>
+          <a href={`/blog/${post.slug.current}`} style="display: block;">
             {post.mainImage && (
-              <img src={urlFor(post.mainImage).width(400).url()} alt={post.title} />
+              <img src={urlFor(post.mainImage).width(400).url()} alt={post.title} style="border-radius: 8px; margin-bottom: 0.75rem;" />
             )}
-            <h2>{post.title}</h2>
-            {post.excerpt && <p>{post.excerpt}</p>}
-            <p>
-              {post.author && <span>{post.author}</span>}
+            <h2 style="font-size: 1.1rem; margin: 0 0 0.5rem;">{post.title}</h2>
+            {post.excerpt && <p style="color: var(--color-text-muted); font-size: 0.9rem;">{post.excerpt}</p>}
+            <p style="font-size: 0.8rem; color: var(--color-text-muted);">
+              {post.author && <span>{post.author} · </span>}
               {post.publishedAt && <time datetime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('de-DE')}</time>}
             </p>
           </a>
         </li>
       ))}
     </ul>
-  </main>
+  </div>
 </BaseLayout>

@@ -26,6 +26,19 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'language',
+      title: 'Sprache',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Englisch', value: 'en' },
+          { title: 'Deutsch', value: 'de' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'en',
+    }),
+    defineField({
       name: 'heroImage',
       title: 'Titelbild',
       type: 'image',

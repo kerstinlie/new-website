@@ -1,19 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getAllPages, urlFor } from '../lib/sanity';
+import { getPageBySlug } from '../lib/sanity';
 
-const pages = await getAllPages();
+// Startseite = die migrierte WordPress-Seite mit Slug "home" (EN-Standard)
+const page = await getPageBySlug('home');
+
+if (page) {
+  return Astro.redirect('/home');
+}
 ---
-<BaseLayout title="Startseite" description="Inbetween">
-  <main>
-    <h1>Inbetween</h1>
-    <p>{pages.length} Seite(n) aus Sanity geladen. <a href="/blog">Zum Blog →</a></p>
-    <ul>
-      {pages.map((page) => (
-        <li>
-          <a href={`/${page.slug.current}`}>{page.title}</a>
-        </li>
-      ))}
-    </ul>
-  </main>
+<BaseLayout title="InBetween" description="InBetween – Next Level Publishing" lang="en">
+  <div class="wrapper" style="padding-top: 2rem; padding-bottom: 3rem;">
+    <h1>InBetween</h1>
+    <p>Die Startseite konnte nicht geladen werden. <a href="/blog">Zum Blog →</a></p>
+  </div>
 </BaseLayout>

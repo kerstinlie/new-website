@@ -1,0 +1,61 @@
+---
+import { navigation } from '../data/navigation';
+
+interface Props {
+  lang?: 'en' | 'de';
+}
+const { lang = 'en' } = Astro.props;
+const nav = navigation[lang];
+const homeSlug = lang === 'de' ? 'startseite' : 'home';
+
+function hrefFor(node: { slug: string | null; href?: string | null }) {
+  if (node.slug) return `/${node.slug}`;
+  if (node.href) return node.href;
+  return '#';
+}
+---
+<header class="site-header">
+  <div class="site-header__topbar">
+    <div class="wrapper">
+      {nav.top.map((item) => (
+        <a href={hrefFor(item)}>{item.title}</a>
+      ))}
+    </div>
+  </div>
+
+  <div class="wrapper site-header__main">
+    <a class="site-header__logo" href={`/${homeSlug}`} aria-label="InBetween Startseite">
+      <img
+        src="https://inbetween.com/wp-content/uploads/InBetween_Logo_colored_RGB-3-1.png"
+        alt="InBetween"
+        width="180"
+        height="36"
+      />
+    </a>
+
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      {nav.main.map((item) => (
+        <div class="site-nav__item">
+          <a class="site-nav__link" href={hrefFor(item)}>{item.title}</a>
+          {item.children && item.children.length > 0 && (
+            <div class="site-nav__dropdown">
+              {item.children.map((child) => (
+                <>
+                  <a href={hrefFor(child)}>{child.title}</a>
+                  {child.children && child.children.map((grandchild) => (
+                    <a href={hrefFor(grandchild)} style="padding-left: 1.75rem;">{grandchild.title}</a>
+                  ))}
+                </>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+
+      <div class="site-nav__lang">
+        <a href="/home" aria-current={lang === 'en' ? 'true' : 'false'}>EN</a>
+        <a href="/startseite" aria-current={lang === 'de' ? 'true' : 'false'}>DE</a>
+      </div>
+    </nav>
+  </div>
+</header>

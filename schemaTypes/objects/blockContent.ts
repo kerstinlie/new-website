@@ -42,5 +42,7 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    defineArrayMember({ type: 'columns' }),
+    defineArrayMember({ type: 'iconBoxGrid' }),
   ],
 });

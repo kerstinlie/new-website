@@ -93,6 +93,17 @@ async function resolveBody(blocks) {
         });
       }
       // wenn Upload fehlschlaegt, Block einfach auslassen statt Fehler zu werfen
+    } else if (block._type === 'columns') {
+      // Spalten enthalten selbst wieder Bloecke (inkl. moeglicher externalImage-
+      // Platzhalter) -> rekursiv aufloesen.
+      const resolvedColumns = [];
+      for (const col of block.columns || []) {
+        resolvedColumns.push({
+          ...col,
+          blocks: await resolveBody(col.blocks || []),
+        });
+      }
+      resolved.push({ ...block, columns: resolvedColumns });
     } else {
       resolved.push(block);
     }

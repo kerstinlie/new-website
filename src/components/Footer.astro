@@ -1,0 +1,45 @@
+---
+import { navigation } from '../data/navigation';
+
+interface Props {
+  lang?: 'en' | 'de';
+}
+const { lang = 'en' } = Astro.props;
+const nav = navigation[lang];
+const year = new Date().getFullYear();
+
+function hrefFor(node: { slug: string | null; href?: string | null }) {
+  if (node.slug) return `/${node.slug}`;
+  if (node.href) return node.href;
+  return '#';
+}
+---
+<footer class="site-footer">
+  <div class="wrapper">
+    <div class="site-footer__cols">
+      <div class="site-footer__col">
+        <h4>{lang === 'de' ? 'Quicklinks' : 'Quick Links'}</h4>
+        <ul>
+          {nav.quickLinks.map((item) => (
+            <li><a href={hrefFor(item)}>{item.title}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h4>{lang === 'de' ? 'Blog' : 'Blog'}</h4>
+        <ul>
+          <li><a href="/blog">{lang === 'de' ? 'Alle Beiträge' : 'All posts'}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>&copy; {year} InBetween</span>
+      <ul>
+        {nav.bottom.map((item) => (
+          <li><a href={hrefFor(item)}>{item.title}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>
