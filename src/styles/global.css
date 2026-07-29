@@ -273,10 +273,13 @@ main {
 }
 
 .pt-columns--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem;
 }
 
 .pt-column--card {
+  flex: none;
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border);
   border-radius: 8px;

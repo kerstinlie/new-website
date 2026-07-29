@@ -46,7 +46,10 @@ const components: PortableTextComponents = {
             <div
               key={col._key}
               className={isGrid ? 'pt-column pt-column--card' : 'pt-column'}
-              style={col.width ? { flexBasis: `${col.width}%` } : undefined}
+              // Grid-Modus nutzt CSS Grid (auto-fit) statt Flex-Prozentbreiten,
+              // da Flex-Basis in % zusammen mit "gap" bei vollen Reihen leicht
+              // umbricht und die letzte Karte auf volle Breite zieht.
+              style={!isGrid && col.width ? { flexBasis: `${col.width}%` } : undefined}
             >
               <PortableText value={dedupeConsecutiveBlocks(col.blocks)} components={components} />
             </div>
