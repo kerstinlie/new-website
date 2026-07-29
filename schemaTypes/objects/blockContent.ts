@@ -44,5 +44,7 @@ export default defineType({
     }),
     defineArrayMember({ type: 'columns' }),
     defineArrayMember({ type: 'iconBoxGrid' }),
+    defineArrayMember({ type: 'processSteps' }),
+    defineArrayMember({ type: 'videoEmbed' }),
   ],
 });

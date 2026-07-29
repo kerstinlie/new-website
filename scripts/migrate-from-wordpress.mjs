@@ -104,6 +104,26 @@ async function resolveBody(blocks) {
         });
       }
       resolved.push({ ...block, columns: resolvedColumns });
+    } else if (block._type === 'processSteps') {
+      // Jeder Schritt kann ein eigenes Bild (externalImage-Platzhalter) haben
+      // -> ebenfalls hochladen und in eine echte Sanity-Bildreferenz aufloesen.
+      const resolvedSteps = [];
+      for (const step of block.steps || []) {
+        const resolvedStep = { ...step };
+        if (step.image && step.image._type === 'externalImage') {
+          const assetId = await uploadImage(step.image.url);
+          if (assetId) {
+            resolvedStep.image = {
+              _type: 'image',
+              asset: { _type: 'reference', _ref: assetId },
+            };
+          } else {
+            delete resolvedStep.image;
+          }
+        }
+        resolvedSteps.push(resolvedStep);
+      }
+      resolved.push({ ...block, steps: resolvedSteps });
     } else {
       resolved.push(block);
     }

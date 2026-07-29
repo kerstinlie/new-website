@@ -1,6 +1,11 @@
 import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import { urlFor } from '../lib/sanity';
 
+function youtubeEmbedUrl(url: string): string | null {
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+}
+
 // Manche Elementor-Quellseiten haben den gleichen Titel doppelt hinterlegt
 // (z.B. einmal als "Heading"-Widget, einmal nochmal im Icon-Box-Titel). Beim
 // Rendern werden direkt aufeinanderfolgende Bloecke mit identischem Text
@@ -68,6 +73,48 @@ const components: PortableTextComponents = {
               {item.text && <p>{item.text}</p>}
             </div>
           ))}
+        </div>
+      );
+    },
+    processSteps: ({ value }) => {
+      const steps = value?.steps || [];
+      if (!steps.length) return null;
+      return (
+        <div className="pt-steps">
+          {steps.map((step: any) => (
+            <div key={step._key} className="pt-step">
+              <div className="pt-step__label">{step.label}</div>
+              {step.image && (
+                <img src={urlFor(step.image).width(500).url()} alt={step.title || ''} />
+              )}
+              {step.title && <h3>{step.title}</h3>}
+              {step.text && <p>{step.text}</p>}
+            </div>
+          ))}
+        </div>
+      );
+    },
+    videoEmbed: ({ value }) => {
+      if (!value?.url) return null;
+      const embedUrl = youtubeEmbedUrl(value.url);
+      if (!embedUrl) {
+        return (
+          <p>
+            <a href={value.url} target="_blank" rel="noopener noreferrer">
+              {value.url}
+            </a>
+          </p>
+        );
+      }
+      return (
+        <div className="pt-video">
+          <iframe
+            src={embedUrl}
+            title="Video"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
         </div>
       );
     },

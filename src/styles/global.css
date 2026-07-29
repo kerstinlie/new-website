@@ -338,3 +338,65 @@ main {
     flex-basis: 100% !important;
   }
 }
+
+/* ---------- Portable Text: Prozess-Schritte & Video ---------- */
+
+.pt-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+  counter-reset: step;
+}
+
+.pt-step {
+  position: relative;
+  text-align: center;
+}
+
+.pt-step img {
+  border-radius: 8px;
+  margin: 0 auto 1rem;
+}
+
+.pt-step__label {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.pt-step h3 {
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+}
+
+.pt-step p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.pt-video {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pt-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
