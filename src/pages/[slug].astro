@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAllPages, getPageBySlug, getPostsByCategory, POST_LIST_PAGES, urlFor } from '../lib/sanity';
 import PortableTextBody from '../components/PortableTextBody';
 import PostGrid from '../components/PostGrid.astro';
+import HomeHero from '../components/HomeHero';
 
 export async function getStaticPaths() {
   const pages = await getAllPages();
@@ -25,20 +26,56 @@ const lang = page.language || 'en';
 // Blog-Beitraegen nachbauen, statt sie leer zu lassen.
 const postListCategories = POST_LIST_PAGES[slug as string];
 const listedPosts = postListCategories ? await getPostsByCategory(postListCategories) : null;
+
+// Home/Startseite bekommen einen eigens gebauten Hero-Bereich (Hintergrund,
+// grosse Ueberschrift, echter Bild-Slider) statt der generischen Darstellung,
+// weil der Original-Hero in WordPress ein Slider mit besonderem Sektions-
+// Styling ist, das sich nicht generisch aus dem migrierten Inhalt ableiten laesst.
+const isHomeHero = slug === 'home' || slug === 'startseite';
+let heroHeadingBlock: any = null;
+let heroTextBlocks: any[] = [];
+let heroImages: any[] = [];
+let restBody = page.body || [];
+
+if (
+  isHomeHero &&
+  Array.isArray(page.body) &&
+  page.body.length >= 2 &&
+  page.body[0]?._type === 'block' &&
+  page.body[1]?._type === 'columns'
+) {
+  heroHeadingBlock = page.body[0];
+  const cols = page.body[1].columns || [];
+  heroTextBlocks = cols[0]?.blocks || [];
+  heroImages = (cols[1]?.blocks || []).filter((b: any) => b._type === 'image');
+  restBody = page.body.slice(2);
+}
 ---
 <BaseLayout
   title={page.seo?.metaTitle || page.title}
   description={page.seo?.metaDescription}
   lang={lang}
 >
-  <div class="wrapper" style="padding-top: 2rem; padding-bottom: 3rem;">
-    {page.heroImage && (
-      <img src={urlFor(page.heroImage).width(1200).url()} alt={page.title} style="margin-bottom: 1.5rem; border-radius: 8px;" />
-    )}
-    <h1>{page.title}</h1>
-    <article>
-      <PortableTextBody value={page.body} client:load />
-    </article>
-    {listedPosts && <PostGrid posts={listedPosts} />}
-  </div>
+  {isHomeHero && heroHeadingBlock ? (
+    <>
+      <HomeHero headingBlock={heroHeadingBlock} textBlocks={heroTextBlocks} images={heroImages} client:load />
+      <div class="wrapper" style="padding-top: 2.5rem; padding-bottom: 3rem;">
+        <article>
+          <PortableTextBody value={restBody} client:load />
+        </article>
+        {listedPosts && <PostGrid posts={listedPosts} />}
+      </div>
+    </>
+  ) : (
+    <div class="wrapper" style="padding-top: 2rem; padding-bottom: 3rem;">
+      {page.heroImage && (
+        <img src={urlFor(page.heroImage).width(1200).url()} alt={page.title} style="margin-bottom: 1.5rem; border-radius: 8px;" />
+      )}
+      <h1>{page.title}</h1>
+      <article>
+        <PortableTextBody value={page.body} client:load />
+      </article>
+      {listedPosts && <PostGrid posts={listedPosts} />}
+    </div>
+  )}
 </BaseLayout>

@@ -7,6 +7,10 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const nav = navigation[lang];
 const homeSlug = lang === 'de' ? 'startseite' : 'home';
+const startTrialHref = lang === 'de' ? 'https://inbetween.com/de/start-free-trial/' : 'https://inbetween.com/en/start-free-trial/';
+const requestDemoHref = 'https://calendly.com/inbetween-sales';
+const startTrialLabel = lang === 'de' ? 'Kostenlos testen' : 'Start Free Trial';
+const requestDemoLabel = lang === 'de' ? 'Demo anfragen' : 'Request Demo';
 
 function hrefFor(node: { slug: string | null; href?: string | null }) {
   if (node.slug) return `/${node.slug}`;
@@ -57,5 +61,10 @@ function hrefFor(node: { slug: string | null; href?: string | null }) {
         <a href="/startseite" aria-current={lang === 'de' ? 'true' : 'false'}>DE</a>
       </div>
     </nav>
+
+    <div class="site-header__actions">
+      <a class="site-header__btn site-header__btn--ghost" href={startTrialHref} target="_blank" rel="noopener noreferrer">{startTrialLabel}</a>
+      <a class="site-header__btn" href={requestDemoHref} target="_blank" rel="noopener noreferrer">{requestDemoLabel}</a>
+    </div>
   </div>
 </header>
