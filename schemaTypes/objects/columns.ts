@@ -35,6 +35,7 @@ export default defineType({
                 { type: 'image', options: { hotspot: true } },
                 { type: 'iconBoxGrid' },
                 { type: 'videoEmbed' },
+                { type: 'heroSlides' },
               ],
             }),
           ],

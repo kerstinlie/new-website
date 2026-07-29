@@ -34,7 +34,7 @@ const listedPosts = postListCategories ? await getPostsByCategory(postListCatego
 const isHomeHero = slug === 'home' || slug === 'startseite';
 let heroHeadingBlock: any = null;
 let heroTextBlocks: any[] = [];
-let heroImages: any[] = [];
+let heroSlides: any[] = [];
 let restBody = page.body || [];
 
 if (
@@ -47,7 +47,17 @@ if (
   heroHeadingBlock = page.body[0];
   const cols = page.body[1].columns || [];
   heroTextBlocks = cols[0]?.blocks || [];
-  heroImages = (cols[1]?.blocks || []).filter((b: any) => b._type === 'image');
+  const visualBlocks = cols[1]?.blocks || [];
+  const slidesBlock = visualBlocks.find((b: any) => b._type === 'heroSlides');
+  if (slidesBlock) {
+    heroSlides = slidesBlock.slides || [];
+  } else {
+    // Fallback, falls kein heroSlides-Block gefunden wurde: einzelne Bilder
+    // als "Folien" ohne Text-Overlay behandeln.
+    heroSlides = visualBlocks
+      .filter((b: any) => b._type === 'image')
+      .map((b: any) => ({ _key: b._key, image: b }));
+  }
   restBody = page.body.slice(2);
 }
 ---
@@ -58,7 +68,7 @@ if (
 >
   {isHomeHero && heroHeadingBlock ? (
     <>
-      <HomeHero headingBlock={heroHeadingBlock} textBlocks={heroTextBlocks} images={heroImages} client:load />
+      <HomeHero headingBlock={heroHeadingBlock} textBlocks={heroTextBlocks} slides={heroSlides} client:load />
       <div class="wrapper" style="padding-top: 2.5rem; padding-bottom: 3rem;">
         <article>
           <PortableTextBody value={restBody} client:load />

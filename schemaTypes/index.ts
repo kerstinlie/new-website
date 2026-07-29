@@ -6,5 +6,6 @@ import columns from './objects/columns';
 import iconBoxGrid from './objects/iconBoxGrid';
 import processSteps from './objects/processSteps';
 import videoEmbed from './objects/videoEmbed';
+import heroSlides from './objects/heroSlides';
 
-export const schemaTypes = [page, post, seo, blockContent, columns, iconBoxGrid, processSteps, videoEmbed];
+export const schemaTypes = [page, post, seo, blockContent, columns, iconBoxGrid, processSteps, videoEmbed, heroSlides];

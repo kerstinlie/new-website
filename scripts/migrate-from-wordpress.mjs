@@ -124,6 +124,24 @@ async function resolveBody(blocks) {
         resolvedSteps.push(resolvedStep);
       }
       resolved.push({ ...block, steps: resolvedSteps });
+    } else if (block._type === 'heroSlides') {
+      const resolvedSlides = [];
+      for (const slide of block.slides || []) {
+        const resolvedSlide = { ...slide };
+        if (slide.image && slide.image._type === 'externalImage') {
+          const assetId = await uploadImage(slide.image.url);
+          if (assetId) {
+            resolvedSlide.image = {
+              _type: 'image',
+              asset: { _type: 'reference', _ref: assetId },
+            };
+          } else {
+            delete resolvedSlide.image;
+          }
+        }
+        resolvedSlides.push(resolvedSlide);
+      }
+      resolved.push({ ...block, slides: resolvedSlides });
     } else {
       resolved.push(block);
     }
