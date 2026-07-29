@@ -27,6 +27,21 @@ function dedupeConsecutiveBlocks(blocks: any[]): any[] {
   return out;
 }
 
+// Manche Abschnitte (z.B. "Highlights", "A ROi you can count on") bestehen aus
+// kurzen, komplett fett formatierten Bloecken gefolgt von einem Beschreibungs-
+// text - im Original sind das eigentlich Mini-Ueberschriften, kommen aus dem
+// WordPress-Export aber nur als normaler, fett markierter Absatz. Diese werden
+// erkannt und optisch als kleine Zwischenueberschrift statt als Flie&#223;text
+// dargestellt, damit lange Textbloecke besser lesbar sind.
+function isBoldOnlyBlock(block: any): boolean {
+  if (block?._type !== 'block' || block.style !== 'normal') return false;
+  const children = block.children || [];
+  if (!children.length) return false;
+  const allBold = children.every((c: any) => (c.marks || []).includes('strong'));
+  const text = blockText(block);
+  return allBold && text.length > 0 && text.length < 90;
+}
+
 const components: PortableTextComponents = {
   types: {
     image: ({ value }) => {
@@ -117,6 +132,14 @@ const components: PortableTextComponents = {
           />
         </div>
       );
+    },
+  },
+  block: {
+    normal: ({ children, value }) => {
+      if (isBoldOnlyBlock(value)) {
+        return <h4 className="pt-subheading">{children}</h4>;
+      }
+      return <p>{children}</p>;
     },
   },
   marks: {
