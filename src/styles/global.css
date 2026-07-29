@@ -272,6 +272,37 @@ main {
   margin-top: 0;
 }
 
+.pt-columns--grid {
+  gap: 1.5rem;
+}
+
+.pt-column--card {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.pt-column--card img {
+  margin: 0 auto 1rem;
+  max-width: 120px;
+}
+
+.pt-column--card h2,
+.pt-column--card h3,
+.pt-column--card h4 {
+  color: var(--color-primary);
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.pt-column--card p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
 .pt-icon-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
