@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getAllPages, getPageBySlug, urlFor } from '../lib/sanity';
+import { getAllPages, getPageBySlug, getPostsByCategory, POST_LIST_PAGES, urlFor } from '../lib/sanity';
 import PortableTextBody from '../components/PortableTextBody';
+import PostGrid from '../components/PostGrid.astro';
 
 export async function getStaticPaths() {
   const pages = await getAllPages();
@@ -18,6 +19,12 @@ if (!page) {
 }
 
 const lang = page.language || 'en';
+
+// Seiten, die in WordPress ein dynamisches "Posts"-Widget genutzt haben
+// (z.B. Success Stories, News, Webinare) -> hier live aus den migrierten
+// Blog-Beitraegen nachbauen, statt sie leer zu lassen.
+const postListCategories = POST_LIST_PAGES[slug as string];
+const listedPosts = postListCategories ? await getPostsByCategory(postListCategories) : null;
 ---
 <BaseLayout
   title={page.seo?.metaTitle || page.title}
@@ -32,5 +39,6 @@ const lang = page.language || 'en';
     <article>
       <PortableTextBody value={page.body} client:load />
     </article>
+    {listedPosts && <PostGrid posts={listedPosts} />}
   </div>
 </BaseLayout>

@@ -10,12 +10,16 @@ sollten manuell im Sanity Studio nachgebaut werden.
 | Typ | Slug | Titel | Fehlende Widgets |
 |---|---|---|---|
 | page | inbetween-5-best-product-experience | InBetween 5 | posts (1x) |
+| page | legal-notice-en | Imprint | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
+| page | privacy-policy-en | Privacy Policy | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
 | page | about-inbetween-database-publishing | About us | timeline-widget-addon (1x) |
-| page | jobs-en | Jobs | shortcode (1x) |
+| page | jobs-en | Jobs | html (aus Roh-HTML konvertiert, bitte pruefen) (1x), shortcode (1x) |
 | page | ueber-uns-de | Über uns | timeline-widget-addon (1x) |
+| page | impressum-de | Impressum | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
+| page | datenschutzerklaerung-de | Datenschutzerklärung | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
 | page | inbetween-software-release-5-de | InBetween 5 | posts (1x) |
 | page | database-publishing-print-automation | InBetween - Die Lösung | posts (1x) |
-| page | offene-stellen-de | Offene Stellen | shortcode (1x) |
+| page | offene-stellen-de | Offene Stellen | shortcode (1x), html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
 | page | news | News | posts (1x) |
 | page | neues | Neues | posts (1x) |
 | page | webinare | Webinare | posts (1x) |
@@ -37,6 +41,13 @@ sollten manuell im Sanity Studio nachgebaut werden.
 | page | inbetween-6 | InBetween 6 | aic-image-comparison (1x), hotspot (4x), timeline-widget-addon (1x) |
 | page | free-trial-starten | Free Trial Starten | form (1x) |
 | page | datasheet-automation-akeneo-app | Datasheet Automation App by InBetween & Akeneo | form (1x) |
+| page | datasheet-automation-app | Datasheet Automation App | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
+| page | newsletter-bestaetigen | InBetween Newsletter Bestätigen | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
+| page | newsletter-confirm | InBetween Newsletter Confirm | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
+| page | product-release-inbetween-6-3 | Product Release: InBetween 6.3 | html (aus Roh-HTML konvertiert, bitte pruefen) (4x) |
+| page | produkt-release-inbetween-6-3 | Produkt-Release: InBetween 6.3 | html (aus Roh-HTML konvertiert, bitte pruefen) (4x) |
+| page | catalog-structure-builder | Catalog Structure Builder for Automated Publishing | html (aus Roh-HTML konvertiert, bitte pruefen) (3x) |
+| page | catalog-structure-builder-strukturierte-katalogplanung | Catalog Structure Builder - für eine strukturierte Katalogplanung | html (aus Roh-HTML konvertiert, bitte pruefen) (3x) |
 | post | akeneounlock-paris-2023-en | AKENEO UNLOCK PARIS 2023 | form (1x) |
 | post | akeneo-app-store-digital-publishing | Akeneo App Store: InBetween Digital Publisher App | form (1x) |
 | post | akeneo-unlock-paris-2023 | Akeneo Unlock Paris 2023 | form (1x) |
@@ -86,6 +97,9 @@ sollten manuell im Sanity Studio nachgebaut werden.
 | post | webinar-portwest-global-catalog-datasheet-automation | Webinar: From PIM to Publish. How Portwest Automates Datasheets and Catalogs at Global Scale | form (1x) |
 | post | webinar-automating-global-catalog-production | Webinar: The OBO Approach to Automating Global Catalog Production Across 40 Subsidiaries | form (2x) |
 | post | webinar-automatisierte-globale-katalogproduktion | Webinar: Automatisierte globale Katalogproduktion bei OBO Bettermann.  | form (2x) |
+| post | multishoring-data-integration-automated-publishing | InBetween & Multishoring Success Story: Enterprise Data Integration for Premium Lifestyle Brand | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
 | post | inbetween-success-story-artdeco | InBetween Success Story: ARTDECO | form (2x) |
+| post | publishing-tool-automated-datasheet-generation | InBetween Publishing Tool: Automated Datasheet Generation from PIM Data | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |
 | post | webinar-automatisiertes-mehrsprachiges-publizieren | Webinar: Automatisiertes mehrsprachiges Publizieren – effiziente globale Produktkommunikation | form (1x) |
 | post | webinar-automated-multilingual-publishing | Webinar: Automated Multilingual Publishing – Efficient Global Product Communication  | form (1x) |
+| post | publishing-tool-automatisierte-datenblaetter | InBetween Publishing Tool: Automatisierte Erstellung von Produktdatenblättern aus PIM-Daten | html (aus Roh-HTML konvertiert, bitte pruefen) (1x) |

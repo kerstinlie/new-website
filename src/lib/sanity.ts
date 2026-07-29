@@ -63,3 +63,22 @@ export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
     { slug }
   );
 }
+
+export async function getPostsByCategory(categories: string[]): Promise<SanityPost[]> {
+  return sanityClient.fetch(
+    `*[_type == "post" && defined(slug.current) && count((categories[])[@ in $categories]) > 0] | order(publishedAt desc){ _id, title, slug, excerpt, mainImage, author, categories, publishedAt }`,
+    { categories }
+  );
+}
+
+// Seiten, die frueher in WordPress ein dynamisches "Posts"-Widget genutzt
+// haben (z.B. Success Stories, News, Webinare) -> Zuordnung Slug -> Kategorie(n)
+// der migrierten Blog-Beitraege, damit die Liste hier live nachgebaut wird.
+export const POST_LIST_PAGES: Record<string, string[]> = {
+  'success-stories': ['Customer Story EN'],
+  'erfolgsgeschichten': ['Customer Story DE'],
+  'news': ['News'],
+  'neues': ['Neuigkeiten'],
+  'webinars': ['Webinars'],
+  'webinare': ['Webinare'],
+};

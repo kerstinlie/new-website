@@ -1,0 +1,72 @@
+---
+import { urlFor, type SanityPost } from '../lib/sanity';
+
+interface Props {
+  posts: SanityPost[];
+  emptyLabel?: string;
+}
+const { posts, emptyLabel = 'Aktuell keine Beiträge in dieser Kategorie.' } = Astro.props;
+---
+{posts.length === 0 ? (
+  <p style="color: var(--color-text-muted);">{emptyLabel}</p>
+) : (
+  <ul class="post-grid">
+    {posts.map((post) => (
+      <li>
+        <a href={`/blog/${post.slug.current}`}>
+          {post.mainImage && (
+            <img src={urlFor(post.mainImage).width(400).url()} alt={post.title} />
+          )}
+          <h3>{post.title}</h3>
+          {post.excerpt && <p class="post-grid__excerpt">{post.excerpt}</p>}
+          <p class="post-grid__meta">
+            {post.publishedAt && (
+              <time datetime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('de-DE')}</time>
+            )}
+          </p>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .post-grid {
+    list-style: none;
+    margin: 2rem 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+  .post-grid a {
+    display: block;
+    color: inherit;
+  }
+  .post-grid a:hover {
+    text-decoration: none;
+  }
+  .post-grid a:hover h3 {
+    color: var(--color-primary);
+  }
+  .post-grid img {
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+  .post-grid h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.4rem;
+  }
+  .post-grid__excerpt {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0 0 0.4rem;
+  }
+  .post-grid__meta {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+</style>
