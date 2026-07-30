@@ -577,6 +577,50 @@ main {
   }
 }
 
+.pt-slides {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.pt-slide-card {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-bg-alt);
+}
+
+.pt-slide-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin: 0;
+}
+
+.pt-slide-card h3,
+.pt-slide-card p,
+.pt-slide-card a {
+  margin: 0.5rem 1rem;
+}
+
+.pt-slide-card h3 {
+  color: var(--color-primary);
+  font-size: 1rem;
+  margin-top: 0.85rem;
+}
+
+.pt-slide-card p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.pt-slide-card a {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
 /* ---------- Portable Text: Prozess-Schritte & Video ---------- */
 
 .pt-steps {

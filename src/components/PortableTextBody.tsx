@@ -121,6 +121,36 @@ const components: PortableTextComponents = {
         </div>
       );
     },
+    // Elementor-Slides-Widgets, die NICHT der Haupt-Hero oben auf der Seite
+    // sind (z.B. ein zweites Slides-Widget weiter unten im Content), werden
+    // hier als einfaches statisches Karten-Grid dargestellt, statt einen
+    // "Unknown block type"-Fehler zu zeigen.
+    heroSlides: ({ value }) => {
+      const slides = value?.slides || [];
+      if (!slides.length) return null;
+      return (
+        <div className="pt-slides">
+          {slides.map((slide: any) => (
+            <div key={slide._key} className="pt-slide-card">
+              {slide.image?.asset && (
+                <img src={urlFor(slide.image).width(600).url()} alt={slide.heading || ''} />
+              )}
+              {slide.heading && <h3>{slide.heading}</h3>}
+              {slide.description && <p>{slide.description}</p>}
+              {slide.buttonText && (
+                <a
+                  href={slide.buttonHref || '#'}
+                  target={/^https?:\/\//.test(slide.buttonHref || '') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                >
+                  {slide.buttonText}
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    },
     videoEmbed: ({ value }) => {
       if (!value?.url) return null;
       const embedUrl = youtubeEmbedUrl(value.url);
