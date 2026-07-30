@@ -468,15 +468,14 @@ main {
 /* ---------- Portable Text: Spalten & Feature-Grid ---------- */
 
 .pt-columns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem 2.5rem;
   margin: 2rem 0;
-  align-items: flex-start;
+  align-items: start;
 }
 
 .pt-column {
-  flex: 1 1 280px;
   min-width: 0;
 }
 
@@ -573,8 +572,8 @@ main {
 }
 
 @media (max-width: 640px) {
-  .pt-column {
-    flex-basis: 100% !important;
+  .pt-columns:not(.pt-columns--grid) {
+    grid-template-columns: 1fr !important;
   }
 }
 

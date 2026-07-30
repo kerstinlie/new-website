@@ -57,20 +57,32 @@ const components: PortableTextComponents = {
     columns: ({ value }) => {
       const cols = value?.columns || [];
       if (!cols.length) return null;
+      // Elementor-Counter-Widgets (animierte Zahlen wie "2.450") kommen aus dem
+      // WordPress-Export nur als nackte Ziffern ohne Label/Animation an - das
+      // sieht ohne Kontext kaputt aus, daher werden reine Zahlen-Spalten
+      // ausgeblendet statt sie bedeutungslos anzuzeigen.
+      const allNumeric = cols.every((col: any) => {
+        const text = (col.blocks || []).map((b: any) => blockText(b)).join('').trim();
+        return text.length > 0 && /^[\d.,]+$/.test(text);
+      });
+      if (allNumeric) return null;
       // Bei 3 oder mehr schmalen Spalten in einer Reihe sieht es optisch besser
       // aus, sie als Karten-Grid darzustellen (z.B. Format-Icons, ROI-Kacheln).
       const isGrid = cols.length >= 3;
+      // CSS Grid statt Flexbox: bei Flex mit Prozent-Breiten kann ein grosses
+      // Bild in einer Spalte die andere Spalte trotz "min-width: 0" in eine
+      // neue Zeile zwingen (Flexbox-Mindestgroessen-Eigenheit). Grid-Spalten
+      // sind exakt definiert und verhalten sich dadurch vorhersehbar.
+      const gridTemplateColumns = !isGrid
+        ? cols.map((c: any) => (c.width ? `${c.width}%` : '1fr')).join(' ')
+        : undefined;
       return (
-        <div className={isGrid ? 'pt-columns pt-columns--grid' : 'pt-columns'}>
+        <div
+          className={isGrid ? 'pt-columns pt-columns--grid' : 'pt-columns'}
+          style={gridTemplateColumns ? { gridTemplateColumns } : undefined}
+        >
           {cols.map((col: any) => (
-            <div
-              key={col._key}
-              className={isGrid ? 'pt-column pt-column--card' : 'pt-column'}
-              // Grid-Modus nutzt CSS Grid (auto-fit) statt Flex-Prozentbreiten,
-              // da Flex-Basis in % zusammen mit "gap" bei vollen Reihen leicht
-              // umbricht und die letzte Karte auf volle Breite zieht.
-              style={!isGrid && col.width ? { flexBasis: `${col.width}%` } : undefined}
-            >
+            <div key={col._key} className={isGrid ? 'pt-column pt-column--card' : 'pt-column'}>
               <PortableText value={dedupeConsecutiveBlocks(col.blocks)} components={components} />
             </div>
           ))}
