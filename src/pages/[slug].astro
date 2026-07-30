@@ -60,6 +60,32 @@ if (
   }
   restBody = page.body.slice(2);
 }
+
+// Die "+++ NEWS +++"-Sektion kam aus einem dynamischen WordPress-Posts-
+// Widget, das die Migration nicht automatisch uebernehmen konnte (es fragt
+// live WP-Daten ab, keine statischen Inhalte). Hier wird an dieser Stelle
+// im Body eine echte Vorschau der neuesten News-Beitraege eingefuegt, statt
+// die Sektion leer zu lassen.
+let newsBeforeBody: any[] | null = null;
+let newsAfterBody: any[] | null = null;
+let newsPreviewPosts: Awaited<ReturnType<typeof getPostsByCategory>> = [];
+if (isHomeHero) {
+  const newsIdx = restBody.findIndex(
+    (b: any) => b?._type === 'block' && (b.children || []).some((c: any) => (c.text || '').includes('+++'))
+  );
+  if (newsIdx !== -1) {
+    const newsCategories = lang === 'de' ? ['Neuigkeiten'] : ['News'];
+    newsPreviewPosts = (await getPostsByCategory(newsCategories)).slice(0, 3);
+    // Heading + direkt folgender "more news"-Link (falls vorhanden) bleiben
+    // vor der Vorschau, der restliche Inhalt kommt danach.
+    let splitAt = newsIdx + 1;
+    if (restBody[splitAt]?._type === 'block' && (restBody[splitAt].children || []).length === 1) {
+      splitAt += 1;
+    }
+    newsBeforeBody = restBody.slice(0, splitAt);
+    newsAfterBody = restBody.slice(splitAt);
+  }
+}
 ---
 <BaseLayout
   title={page.seo?.metaTitle || page.title}
@@ -71,7 +97,15 @@ if (
       <HomeHero headingBlock={heroHeadingBlock} textBlocks={heroTextBlocks} slides={heroSlides} client:load />
       <div class="wrapper" style="padding-top: 2.5rem; padding-bottom: 3rem;">
         <article>
-          <PortableTextBody value={restBody} client:load />
+          {newsBeforeBody ? (
+            <>
+              <PortableTextBody value={newsBeforeBody} client:load />
+              {newsPreviewPosts.length > 0 && <PostGrid posts={newsPreviewPosts} />}
+              <PortableTextBody value={newsAfterBody} client:load />
+            </>
+          ) : (
+            <PortableTextBody value={restBody} client:load />
+          )}
         </article>
         {listedPosts && <PostGrid posts={listedPosts} />}
       </div>
