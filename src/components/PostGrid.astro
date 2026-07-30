@@ -33,15 +33,24 @@ const { posts, emptyLabel = 'Aktuell keine Beiträge in dieser Kategorie.' } = A
 <style>
   .post-grid {
     list-style: none;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 2rem;
+    gap: 1.25rem;
+  }
+  .post-grid li {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-primary);
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
   }
   .post-grid a {
     display: block;
     color: inherit;
+    padding: 0 1.25rem 1.25rem;
   }
   .post-grid a:hover {
     text-decoration: none;
@@ -50,8 +59,9 @@ const { posts, emptyLabel = 'Aktuell keine Beiträge in dieser Kategorie.' } = A
     color: var(--color-primary);
   }
   .post-grid img {
-    border-radius: 8px;
-    margin-bottom: 0.75rem;
+    margin: 0 -1.25rem 0.75rem;
+    width: calc(100% + 2.5rem);
+    max-width: none;
     aspect-ratio: 16 / 10;
     object-fit: cover;
   }

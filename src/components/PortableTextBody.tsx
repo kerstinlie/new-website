@@ -114,11 +114,27 @@ const components: PortableTextComponents = {
           className={isGrid ? 'pt-columns pt-columns--grid' : 'pt-columns'}
           style={gridTemplateColumns ? { gridTemplateColumns } : undefined}
         >
-          {cols.map((col: any) => (
-            <div key={col._key} className={isGrid ? 'pt-column pt-column--card' : 'pt-column'}>
-              <PortableText value={groupImageStrips(dedupeConsecutiveBlocks(col.blocks))} components={components} />
-            </div>
-          ))}
+          {cols.map((col: any) => {
+            // Manche Original-Widgets (z.B. die Erfolgsgeschichten-Kacheln
+            // "Arkema"/"Festool"/"Vitakraft") hatten im WordPress-Export gar
+            // kein echtes Bild hinterlegt - nur Ueberschrift, Text und Link.
+            // Damit diese Karten trotzdem nicht "leer" wirken, bekommen sie
+            // statt eines fehlenden Fotos ein Monogramm aus dem Anfangs-
+            // buchstaben der Karten-Ueberschrift.
+            const hasImage = (col.blocks || []).some((b: any) => b._type === 'image');
+            const headingBlock = (col.blocks || []).find((b: any) => b._type === 'block');
+            const headingText = isGrid && !hasImage ? blockText(headingBlock) : '';
+            return (
+              <div key={col._key} className={isGrid ? 'pt-column pt-column--card' : 'pt-column'}>
+                {headingText && (
+                  <div className="pt-column__monogram" aria-hidden="true">
+                    {headingText.trim().charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <PortableText value={groupImageStrips(dedupeConsecutiveBlocks(col.blocks))} components={components} />
+              </div>
+            );
+          })}
         </div>
       );
     },
