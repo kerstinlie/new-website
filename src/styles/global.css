@@ -577,6 +577,52 @@ main {
   }
 }
 
+.pt-logo-strip {
+  overflow: hidden;
+  margin: 2rem 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.pt-logo-strip__track {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  width: max-content;
+  animation: pt-logo-scroll 22s linear infinite;
+}
+
+.pt-logo-strip:hover .pt-logo-strip__track {
+  animation-play-state: paused;
+}
+
+.pt-logo-strip img {
+  height: 48px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  opacity: 0.7;
+  filter: grayscale(100%);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+@keyframes pt-logo-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-logo-strip__track {
+    animation: none;
+    flex-wrap: wrap;
+  }
+}
+
 .pt-slides {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

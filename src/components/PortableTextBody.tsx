@@ -42,6 +42,39 @@ function isBoldOnlyBlock(block: any): boolean {
   return allBold && text.length > 0 && text.length < 90;
 }
 
+// Elementor-Logo-/Bild-Karussells (z.B. "285+ happy customers worldwide")
+// werden im WordPress-Export nur als lose Folge einzelner Bild-Widgets
+// exportiert, ohne Hinweis auf das rotierende Karussell-Layout. Drei oder
+// mehr direkt aufeinanderfolgende Bild-Bloecke auf oberster Ebene werden
+// deshalb zu einer automatisch scrollenden Logo-Leiste zusammengefasst,
+// statt sie einzeln und riesig untereinander darzustellen.
+function groupImageStrips(blocks: any[]): any[] {
+  const out: any[] = [];
+  const arr = blocks || [];
+  let i = 0;
+  while (i < arr.length) {
+    const b = arr[i];
+    if (b?._type === 'image' && b?.asset) {
+      const group = [b];
+      let j = i + 1;
+      while (arr[j]?._type === 'image' && arr[j]?.asset) {
+        group.push(arr[j]);
+        j++;
+      }
+      if (group.length >= 3) {
+        out.push({ _type: 'imageStrip', _key: b._key, images: group });
+      } else {
+        out.push(...group);
+      }
+      i = j;
+    } else {
+      out.push(b);
+      i++;
+    }
+  }
+  return out;
+}
+
 const components: PortableTextComponents = {
   types: {
     image: ({ value }) => {
@@ -83,7 +116,7 @@ const components: PortableTextComponents = {
         >
           {cols.map((col: any) => (
             <div key={col._key} className={isGrid ? 'pt-column pt-column--card' : 'pt-column'}>
-              <PortableText value={dedupeConsecutiveBlocks(col.blocks)} components={components} />
+              <PortableText value={groupImageStrips(dedupeConsecutiveBlocks(col.blocks))} components={components} />
             </div>
           ))}
         </div>
@@ -151,6 +184,20 @@ const components: PortableTextComponents = {
         </div>
       );
     },
+    imageStrip: ({ value }) => {
+      const images = value?.images || [];
+      if (!images.length) return null;
+      const loop = [...images, ...images];
+      return (
+        <div className="pt-logo-strip">
+          <div className="pt-logo-strip__track">
+            {loop.map((img: any, idx: number) => (
+              <img key={`${img._key}-${idx}`} src={urlFor(img).width(200).url()} alt="" />
+            ))}
+          </div>
+        </div>
+      );
+    },
     videoEmbed: ({ value }) => {
       if (!value?.url) return null;
       const embedUrl = youtubeEmbedUrl(value.url);
@@ -199,5 +246,5 @@ const components: PortableTextComponents = {
 
 export default function PortableTextBody({ value }: { value: any }) {
   if (!value) return null;
-  return <PortableText value={value} components={components} />;
+  return <PortableText value={groupImageStrips(value)} components={components} />;
 }
