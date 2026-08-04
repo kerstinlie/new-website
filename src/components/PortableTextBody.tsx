@@ -42,6 +42,43 @@ function isBoldOnlyBlock(block: any): boolean {
   return allBold && text.length > 0 && text.length < 90;
 }
 
+// Manche Highlight-Eintraege (z.B. "Leverage dynamic data") haben Titel und
+// Beschreibungstext im Original NICHT als zwei getrennte Absaetze, sondern
+// als EINEN Block: fette Ueberschrift, gefolgt von einem Zeilenumbruch und
+// dem normalen Flie&#223;text, alles im selben Absatz. Dadurch griff die
+// isBoldOnlyBlock-Erkennung (die einen Block braucht, der KOMPLETT fett ist)
+// nicht und die Ueberschrift blieb schwarz statt rot. Hier wird so ein Block
+// in zwei getrennte Bloecke aufgesplittet, bevor er gerendert wird.
+function splitLeadingBoldBlocks(blocks: any[]): any[] {
+  const out: any[] = [];
+  for (const b of blocks || []) {
+    const children = b?.children || [];
+    if (b?._type === 'block' && b.style === 'normal' && children.length > 1) {
+      const allBold = children.every((c: any) => (c.marks || []).includes('strong'));
+      const firstIsBold = (children[0]?.marks || []).includes('strong');
+      if (!allBold && firstIsBold) {
+        let splitIdx = 0;
+        while (splitIdx < children.length && (children[splitIdx].marks || []).includes('strong')) {
+          splitIdx++;
+        }
+        const boldChildren = children.slice(0, splitIdx);
+        const restChildren = children.slice(splitIdx).map((c: any, i: number) =>
+          i === 0 ? { ...c, text: (c.text || '').replace(/^\s+/, '') } : c
+        );
+        const boldText = boldChildren.map((c: any) => c.text || '').join('').trim();
+        const restText = restChildren.map((c: any) => c.text || '').join('').trim();
+        if (boldText && boldText.length < 90 && restText) {
+          out.push({ ...b, _key: `${b._key}-head`, children: boldChildren });
+          out.push({ ...b, _key: `${b._key}-body`, children: restChildren });
+          continue;
+        }
+      }
+    }
+    out.push(b);
+  }
+  return out;
+}
+
 // Elementor-Logo-/Bild-Karussells (z.B. "285+ happy customers worldwide")
 // werden im WordPress-Export nur als lose Folge einzelner Bild-Widgets
 // exportiert, ohne Hinweis auf das rotierende Karussell-Layout. Drei oder
@@ -109,29 +146,39 @@ const components: PortableTextComponents = {
       const gridTemplateColumns = !isGrid
         ? cols.map((c: any) => (c.width ? `${c.width}%` : '1fr')).join(' ')
         : undefined;
+      const hasCtaLink = (blocks: any[]) =>
+        (blocks || []).some(
+          (b: any) => (b.markDefs || []).some((m: any) => m._type === 'link') && blockText(b).trim().startsWith('→')
+        );
+      const hasImg = (blocks: any[]) => (blocks || []).some((b: any) => b._type === 'image');
+      // Kacheln mit echtem Foto UND einem Pfeil-Call-to-Action (z.B. die
+      // Erfolgsgeschichten "Arkema"/"Festool"/"Vitakraft") sahen im Original
+      // nicht wie Karten mit Rahmen aus, sondern wie ein einfaches Foto +
+      // Titel + Button innerhalb eines gemeinsamen, sanft eingefaerbten
+      // Abschnitts - anders als z.B. das Format-Icon-Grid oder ROI-Kacheln.
+      const isStoryGrid = isGrid && cols.some((c: any) => hasImg(c.blocks) && hasCtaLink(c.blocks));
+      const gridClass = isStoryGrid ? 'pt-columns pt-columns--story-grid' : isGrid ? 'pt-columns pt-columns--grid' : 'pt-columns';
       return (
-        <div
-          className={isGrid ? 'pt-columns pt-columns--grid' : 'pt-columns'}
-          style={gridTemplateColumns ? { gridTemplateColumns } : undefined}
-        >
+        <div className={gridClass} style={gridTemplateColumns ? { gridTemplateColumns } : undefined}>
           {cols.map((col: any) => {
-            // Manche Original-Widgets (z.B. die Erfolgsgeschichten-Kacheln
-            // "Arkema"/"Festool"/"Vitakraft") hatten im WordPress-Export gar
-            // kein echtes Bild hinterlegt - nur Ueberschrift, Text und Link.
-            // Damit diese Karten trotzdem nicht "leer" wirken, bekommen sie
-            // statt eines fehlenden Fotos ein Monogramm aus dem Anfangs-
-            // buchstaben der Karten-Ueberschrift.
-            const hasImage = (col.blocks || []).some((b: any) => b._type === 'image');
+            const hasImage = hasImg(col.blocks);
+            // Kacheln ohne eigenes Foto (z.B. wenn kein Bild im Export
+            // vorhanden war) bekommen statt eines fehlenden Fotos ein
+            // Monogramm aus dem Anfangsbuchstaben der Karten-Ueberschrift.
             const headingBlock = (col.blocks || []).find((b: any) => b._type === 'block');
             const headingText = isGrid && !hasImage ? blockText(headingBlock) : '';
+            const colClass = isStoryGrid ? 'pt-column pt-column--story' : isGrid ? 'pt-column pt-column--card' : 'pt-column';
             return (
-              <div key={col._key} className={isGrid ? 'pt-column pt-column--card' : 'pt-column'}>
+              <div key={col._key} className={colClass}>
                 {headingText && (
                   <div className="pt-column__monogram" aria-hidden="true">
                     {headingText.trim().charAt(0).toUpperCase()}
                   </div>
                 )}
-                <PortableText value={groupImageStrips(dedupeConsecutiveBlocks(col.blocks))} components={components} />
+                <PortableText
+                  value={groupImageStrips(splitLeadingBoldBlocks(dedupeConsecutiveBlocks(col.blocks)))}
+                  components={components}
+                />
               </div>
             );
           })}
@@ -251,8 +298,17 @@ const components: PortableTextComponents = {
     link: ({ value, children }) => {
       const href = value?.href || '#';
       const isExternal = /^https?:\/\//.test(href);
+      // Original-CTAs wie "→ Success Story" waren echte Buttons, keine
+      // einfachen Textlinks - werden hier wieder als roter Button dargestellt.
+      const firstChild = Array.isArray(children) ? children[0] : children;
+      const isCta = typeof firstChild === 'string' && firstChild.trim().startsWith('→');
       return (
-        <a href={href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>
+        <a
+          href={href}
+          className={isCta ? 'pt-cta-btn' : undefined}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+        >
           {children}
         </a>
       );
@@ -262,5 +318,5 @@ const components: PortableTextComponents = {
 
 export default function PortableTextBody({ value }: { value: any }) {
   if (!value) return null;
-  return <PortableText value={groupImageStrips(value)} components={components} />;
+  return <PortableText value={groupImageStrips(splitLeadingBoldBlocks(value))} components={components} />;
 }

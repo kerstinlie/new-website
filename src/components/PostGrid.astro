@@ -24,6 +24,7 @@ const { posts, emptyLabel = 'Aktuell keine Beiträge in dieser Kategorie.' } = A
               <time datetime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('de-DE')}</time>
             )}
           </p>
+          <span class="post-grid__more">Read more »</span>
         </a>
       </li>
     ))}
@@ -78,5 +79,17 @@ const { posts, emptyLabel = 'Aktuell keine Beiträge in dieser Kategorie.' } = A
     font-size: 0.8rem;
     color: var(--color-text-muted);
     margin: 0;
+  }
+  .post-grid h3 {
+    text-decoration: underline;
+  }
+  .post-grid__more {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-primary-dark);
   }
 </style>

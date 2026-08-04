@@ -560,6 +560,59 @@ main {
   margin: 0;
 }
 
+.pt-cta-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  background: var(--color-primary);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  text-decoration: none !important;
+}
+
+.pt-cta-btn:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Erfolgsgeschichten-artige Kacheln: Foto + Titel + Button auf sandigem
+   Sektions-Hintergrund, ohne einzelne Kartenrahmen (wie im Original). */
+.pt-columns--story-grid {
+  background: linear-gradient(160deg, var(--color-sand-30) 0%, #fbf9f7 60%, var(--color-bg) 100%);
+  border: 1px solid var(--color-sand-60);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.pt-column--story {
+  display: flex;
+  flex-direction: column;
+}
+
+.pt-column--story img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 0 1rem;
+}
+
+.pt-column--story h2 {
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  color: var(--color-text);
+}
+
+.pt-column--story p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 0.25rem;
+}
+
 .pt-icon-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
