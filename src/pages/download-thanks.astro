@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Vielen Dank" description="Ihr Download ist bereit.">
+  <div class="wrapper download-thanks">
+    <h1>Vielen Dank!</h1>
+    <p>Ihre Anfrage ist bei uns eingegangen. Ihr Download steht bereit:</p>
+    <a id="pdf-download-link" class="pt-cta-btn" href="#" target="_blank" rel="noopener">→ PDF herunterladen</a>
+    <p class="download-thanks__fallback" id="pdf-fallback" hidden>
+      Es wurde kein Download gefunden. Bitte <a href="mailto:marketing@inbetween.de">kontaktieren Sie uns</a> direkt.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .download-thanks {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    max-width: 560px;
+  }
+  .download-thanks h1 {
+    margin-bottom: 1rem;
+  }
+  .download-thanks__fallback {
+    margin-top: 1.5rem;
+    color: var(--color-text-muted);
+  }
+</style>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const pdf = params.get('pdf');
+  const link = document.getElementById('pdf-download-link') as HTMLAnchorElement | null;
+  const fallback = document.getElementById('pdf-fallback');
+  if (pdf && link) {
+    link.href = pdf;
+    // PDF automatisch in neuem Tab oeffnen; der Button bleibt als manueller
+    // Fallback sichtbar, falls der Browser das Popup blockiert.
+    window.open(pdf, '_blank');
+  } else {
+    link?.remove();
+    fallback?.removeAttribute('hidden');
+  }
+</script>

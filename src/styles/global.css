@@ -613,6 +613,75 @@ main {
   margin: 0 0 0.25rem;
 }
 
+.gated-form {
+  max-width: 480px;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.gated-form__bot-field {
+  position: absolute;
+  left: -9999px;
+}
+
+.gated-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.gated-form input[type='text'],
+.gated-form input[type='email'] {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 400;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg);
+}
+
+.gated-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.gated-form__consent {
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  gap: 0.5rem;
+}
+
+.gated-form__consent input {
+  margin-top: 0.2rem;
+}
+
+.gated-form button {
+  align-self: flex-start;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+@media (max-width: 480px) {
+  .gated-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .pt-icon-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

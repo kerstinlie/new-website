@@ -47,5 +47,6 @@ export default defineType({
     defineArrayMember({ type: 'processSteps' }),
     defineArrayMember({ type: 'videoEmbed' }),
     defineArrayMember({ type: 'heroSlides' }),
+    defineArrayMember({ type: 'gatedForm' }),
   ],
 });

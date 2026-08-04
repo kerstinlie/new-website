@@ -261,6 +261,55 @@ const components: PortableTextComponents = {
         </div>
       );
     },
+    gatedForm: ({ value }) => {
+      if (!value) return null;
+      const formName = value.formGroup || 'contact-request';
+      const buttonText = value.buttonText || 'Absenden';
+      const thanksParams = new URLSearchParams();
+      if (value.redirectUrl) thanksParams.set('redirect', value.redirectUrl);
+      if (value.successMessage) thanksParams.set('message', value.successMessage);
+      const thanksUrl = `/form-thanks/?${thanksParams.toString()}`;
+      return (
+        <form
+          name={formName}
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          action={thanksUrl}
+          className="gated-form"
+        >
+          <input type="hidden" name="form-name" value={formName} />
+          {value.redirectUrl && <input type="hidden" name="requested_target" value={value.redirectUrl} />}
+          {value.notifyEmail && <input type="hidden" name="notify_email" value={value.notifyEmail} />}
+          <p className="gated-form__bot-field">
+            <label>
+              Bitte nicht ausfüllen: <input name="bot-field" />
+            </label>
+          </p>
+          <div className="gated-form__row">
+            <label>
+              Name*
+              <input type="text" name="name" required />
+            </label>
+            <label>
+              E-Mail*
+              <input type="email" name="email" required />
+            </label>
+          </div>
+          <label>
+            Firma
+            <input type="text" name="company" />
+          </label>
+          <label className="gated-form__consent">
+            <input type="checkbox" name="consent" required />
+            Ich habe die <a href="/privacy-policy-en">Datenschutzerklärung</a> zur Kenntnis genommen.
+          </label>
+          <button type="submit" className="pt-cta-btn">
+            {buttonText}
+          </button>
+        </form>
+      );
+    },
     videoEmbed: ({ value }) => {
       if (!value?.url) return null;
       const embedUrl = youtubeEmbedUrl(value.url);
