@@ -669,6 +669,24 @@ main {
   margin-top: 0.2rem;
 }
 
+.gated-form__options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gated-form__checkbox {
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 0.85rem;
+  font-weight: 400;
+  gap: 0.5rem;
+}
+
+.gated-form__checkbox input {
+  margin-top: 0.2rem;
+}
+
 .gated-form button {
   align-self: flex-start;
   border: none;

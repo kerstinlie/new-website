@@ -300,9 +300,21 @@ const components: PortableTextComponents = {
             Firma
             <input type="text" name="company" />
           </label>
+          {value.formGroup === 'pdf-download' && (
+            <div className="gated-form__options">
+              <label className="gated-form__checkbox">
+                <input type="checkbox" name="wants_sales_contact" />
+                Ich möchte mit einem Vertriebsmitarbeiter sprechen.
+              </label>
+              <label className="gated-form__checkbox">
+                <input type="checkbox" name="wants_newsletter" />
+                Ich möchte den Newsletter abonnieren.
+              </label>
+            </div>
+          )}
           <label className="gated-form__consent">
             <input type="checkbox" name="consent" required />
-            Ich habe die <a href="/privacy-policy-en">Datenschutzerklärung</a> zur Kenntnis genommen.
+            Ich habe die <a href="/privacy-policy-en">Datenschutzerklärung</a> zur Kenntnis genommen. Hinweis: Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail widerrufen.
           </label>
           <button type="submit" className="pt-cta-btn">
             {buttonText}
