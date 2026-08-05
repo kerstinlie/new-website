@@ -8,6 +8,7 @@ import processSteps from './objects/processSteps';
 import videoEmbed from './objects/videoEmbed';
 import heroSlides from './objects/heroSlides';
 import gatedForm from './objects/gatedForm';
+import quoteCarousel from './objects/quoteCarousel';
 
 export const schemaTypes = [
   page,
@@ -20,4 +21,5 @@ export const schemaTypes = [
   videoEmbed,
   heroSlides,
   gatedForm,
+  quoteCarousel,
 ];

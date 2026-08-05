@@ -37,6 +37,7 @@ export default defineType({
                 { type: 'videoEmbed' },
                 { type: 'heroSlides' },
                 { type: 'gatedForm' },
+                { type: 'quoteCarousel' },
               ],
             }),
           ],

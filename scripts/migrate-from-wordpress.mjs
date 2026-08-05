@@ -142,6 +142,24 @@ async function resolveBody(blocks) {
         resolvedSlides.push(resolvedSlide);
       }
       resolved.push({ ...block, slides: resolvedSlides });
+    } else if (block._type === 'quoteCarousel') {
+      const resolvedItems = [];
+      for (const item of block.items || []) {
+        const resolvedItem = { ...item };
+        if (item.image && item.image._type === 'externalImage') {
+          const assetId = await uploadImage(item.image.url);
+          if (assetId) {
+            resolvedItem.image = {
+              _type: 'image',
+              asset: { _type: 'reference', _ref: assetId },
+            };
+          } else {
+            delete resolvedItem.image;
+          }
+        }
+        resolvedItems.push(resolvedItem);
+      }
+      resolved.push({ ...block, items: resolvedItems });
     } else {
       resolved.push(block);
     }

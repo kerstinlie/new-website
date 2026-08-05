@@ -48,5 +48,6 @@ export default defineType({
     defineArrayMember({ type: 'videoEmbed' }),
     defineArrayMember({ type: 'heroSlides' }),
     defineArrayMember({ type: 'gatedForm' }),
+    defineArrayMember({ type: 'quoteCarousel' }),
   ],
 });

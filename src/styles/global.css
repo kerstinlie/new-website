@@ -700,6 +700,114 @@ main {
   }
 }
 
+.quote-carousel {
+  margin: 1.5rem 0;
+  padding: 2rem;
+  background: var(--color-bg-alt);
+  border-radius: 8px;
+}
+
+.quote-carousel__slide {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  min-height: 280px;
+}
+
+.quote-carousel__text {
+  flex: 1;
+}
+
+.quote-carousel__quote {
+  font-family: var(--font-serif, inherit);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+}
+
+.quote-carousel__author {
+  color: #aa9687;
+  margin: 0;
+}
+
+.quote-carousel__author strong {
+  color: #aa9687;
+  display: block;
+}
+
+.quote-carousel__image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.quote-carousel__image img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 6px;
+}
+
+.quote-carousel__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.quote-carousel__arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  padding: 0.25rem 0.5rem;
+}
+
+.quote-carousel__arrow:hover {
+  color: var(--color-primary);
+}
+
+.quote-carousel__dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.quote-carousel__dots button {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: var(--color-border);
+  cursor: pointer;
+}
+
+.quote-carousel__dots button.is-active {
+  background: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .quote-carousel {
+    padding: 1.5rem;
+  }
+  .quote-carousel__slide {
+    flex-direction: column;
+    text-align: center;
+    min-height: auto;
+  }
+  .quote-carousel__image {
+    justify-content: center;
+  }
+  .quote-carousel__image img {
+    max-width: 280px;
+  }
+}
+
 .pt-icon-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

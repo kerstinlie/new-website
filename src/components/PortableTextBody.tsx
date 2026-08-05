@@ -1,5 +1,6 @@
 import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import { urlFor } from '../lib/sanity';
+import QuoteCarousel from './QuoteCarousel';
 
 function youtubeEmbedUrl(url: string): string | null {
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
@@ -246,6 +247,11 @@ const components: PortableTextComponents = {
           ))}
         </div>
       );
+    },
+    quoteCarousel: ({ value }) => {
+      const items = value?.items || [];
+      if (!items.length) return null;
+      return <QuoteCarousel items={items} />;
     },
     imageStrip: ({ value }) => {
       const images = value?.images || [];
