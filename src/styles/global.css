@@ -858,11 +858,17 @@ main {
 }
 
 .pt-hero-band .pt-column > * {
-  margin-top: 0.35rem !important;
+  margin-top: 0.2rem !important;
 }
 
 .pt-hero-band .pt-column > *:first-child {
   margin-top: 0;
+}
+
+/* Logo in der ersten Spalte war deutlich zu gross - ca. 30% kleiner. */
+.pt-hero-band .pt-columns > .pt-column:first-child img {
+  max-width: 60%;
+  width: auto;
 }
 
 /* Zwei aufeinanderfolgende <p> aus dem Original sind derselbe Fliesstext
