@@ -172,7 +172,12 @@ const components: PortableTextComponents = {
             // Monogramm aus dem Anfangsbuchstaben der Karten-Ueberschrift.
             const headingBlock = (col.blocks || []).find((b: any) => b._type === 'block');
             const headingText = isGrid && !hasImage ? blockText(headingBlock) : '';
-            const colClass = isStoryGrid ? 'pt-column pt-column--story' : isGrid ? 'pt-column pt-column--card' : 'pt-column';
+            // Spalten mit einem Formular (z.B. "Download Case Study") hatten im
+            // Original einen sandfarben hinterlegten Kasten um Ueberschrift+
+            // Formular gemeinsam, statt eines weissen Hintergrunds.
+            const hasForm = (col.blocks || []).some((b: any) => b._type === 'gatedForm');
+            let colClass = isStoryGrid ? 'pt-column pt-column--story' : isGrid ? 'pt-column pt-column--card' : 'pt-column';
+            if (hasForm) colClass += ' pt-column--form-box';
             return (
               <div key={col._key} className={colClass}>
                 {headingText && (
@@ -376,11 +381,21 @@ const components: PortableTextComponents = {
   },
   block: {
     normal: ({ children, value }) => {
+      const style = value?.align ? { textAlign: value.align } : undefined;
       if (isBoldOnlyBlock(value)) {
-        return <h4 className="pt-subheading">{children}</h4>;
+        return <h4 className="pt-subheading" style={style}>{children}</h4>;
       }
-      return <p>{children}</p>;
+      return <p style={style}>{children}</p>;
     },
+    h2: ({ children, value }) => (
+      <h2 style={value?.align ? { textAlign: value.align } : undefined}>{children}</h2>
+    ),
+    h3: ({ children, value }) => (
+      <h3 style={value?.align ? { textAlign: value.align } : undefined}>{children}</h3>
+    ),
+    h4: ({ children, value }) => (
+      <h4 style={value?.align ? { textAlign: value.align } : undefined}>{children}</h4>
+    ),
   },
   marks: {
     link: ({ value, children }) => {

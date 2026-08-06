@@ -578,6 +578,27 @@ main {
   margin: 0;
 }
 
+.pt-column--form-box {
+  background: linear-gradient(160deg, var(--color-sand-30) 0%, var(--color-sand-60) 100%);
+  border-radius: 8px;
+  padding: 2rem;
+  align-items: stretch;
+}
+
+.pt-column--form-box h2,
+.pt-column--form-box h3 {
+  text-align: left;
+  margin-top: 0;
+}
+
+.pt-column--form-box .gated-form {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  max-width: none;
+}
+
 .pt-cta-btn {
   display: inline-block;
   margin-top: 0.5rem;
