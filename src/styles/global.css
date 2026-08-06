@@ -833,24 +833,13 @@ main {
   margin-left: -50vw;
   margin-right: -50vw;
   width: 100vw;
-  padding: 3rem 1.5rem 5.5rem;
+  padding: 3rem 1.5rem;
   margin-top: -1px;
   margin-bottom: 2rem;
   /* Gleicher Farbverlauf wie der Hero-Bereich der Startseite, statt der
      individuellen (teils zu kraeftigen) Original-WordPress-Farben. */
   background: linear-gradient(160deg, var(--color-sand-30) 0%, #fbf9f7 55%, var(--color-bg) 100%);
-  overflow: hidden;
-}
-
-.pt-hero-band::after {
-  content: '';
-  position: absolute;
-  left: -10%;
-  right: -10%;
-  bottom: -1px;
-  height: 70px;
-  background: var(--color-bg);
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  border-bottom: 1px solid var(--color-sand-60);
 }
 
 .pt-hero-band__inner {
@@ -868,6 +857,32 @@ main {
   align-items: center;
 }
 
+.pt-hero-band .pt-column > * {
+  margin-top: 0.5rem;
+}
+
+.pt-hero-band .pt-column > *:first-child {
+  margin-top: 0;
+}
+
+/* Zwei aufeinanderfolgende <p> aus dem Original sind derselbe Fliesstext
+   (nur im Quelltext auf zwei Absaetze aufgeteilt) - ohne Extra-Abstand
+   dazwischen aneinanderreihen, damit es wie EIN Absatz wirkt. */
+.pt-hero-band .pt-column p + p {
+  margin-top: 0;
+}
+
+.pt-hero-band img {
+  margin: 0 !important;
+}
+
+.pt-hero-band .pt-divider {
+  width: 140px;
+  margin: 0.6rem auto !important;
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
 .pt-hero-band h1,
 .pt-hero-band h2,
 .pt-hero-band h3 {
@@ -875,7 +890,6 @@ main {
   text-transform: none;
   border-bottom: none;
   padding-bottom: 0;
-  margin-top: 0.75rem;
   margin-bottom: 0;
   font-size: clamp(2.1rem, 4vw, 3rem);
   line-height: 1.15;
@@ -889,13 +903,18 @@ main {
 .pt-hero-band p {
   color: #aa9687;
   line-height: 1.35;
-  margin: 1rem 0 0;
   font-size: 0.95rem;
 }
 
 .pt-hero-band p a {
   color: inherit;
   text-decoration: underline;
+}
+
+.pt-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 1.5rem 0;
 }
 
 .pt-highlight {

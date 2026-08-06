@@ -9,6 +9,7 @@ import videoEmbed from './objects/videoEmbed';
 import heroSlides from './objects/heroSlides';
 import gatedForm from './objects/gatedForm';
 import quoteCarousel from './objects/quoteCarousel';
+import divider from './objects/divider';
 
 export const schemaTypes = [
   page,
@@ -22,4 +23,5 @@ export const schemaTypes = [
   heroSlides,
   gatedForm,
   quoteCarousel,
+  divider,
 ];

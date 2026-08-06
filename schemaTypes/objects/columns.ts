@@ -48,6 +48,7 @@ export default defineType({
                 { type: 'heroSlides' },
                 { type: 'gatedForm' },
                 { type: 'quoteCarousel' },
+                { type: 'divider' },
               ],
             }),
           ],

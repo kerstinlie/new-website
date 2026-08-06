@@ -268,6 +268,7 @@ const components: PortableTextComponents = {
         </div>
       );
     },
+    divider: () => <hr className="pt-divider" />,
     quoteCarousel: ({ value }) => {
       const items = value?.items || [];
       if (!items.length) return null;

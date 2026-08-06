@@ -50,5 +50,6 @@ export default defineType({
     defineArrayMember({ type: 'heroSlides' }),
     defineArrayMember({ type: 'gatedForm' }),
     defineArrayMember({ type: 'quoteCarousel' }),
+    defineArrayMember({ type: 'divider' }),
   ],
 });
