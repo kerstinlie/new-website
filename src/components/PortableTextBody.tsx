@@ -54,7 +54,11 @@ function splitLeadingBoldBlocks(blocks: any[]): any[] {
   const out: any[] = [];
   for (const b of blocks || []) {
     const children = b?.children || [];
-    if (b?._type === 'block' && b.style === 'normal' && children.length > 1) {
+    // Listeneintraege (Aufzaehlungen) haben oft bewusst eine fette Einleitung
+    // gefolgt von normalem Text INNERHALB EINES Bullet-Punkts (z.B. "Real
+    // Business Impact") - die sollen NICHT in zwei separate Bloecke/Bullets
+    // aufgesplittet werden.
+    if (b?._type === 'block' && b.style === 'normal' && !b.listItem && children.length > 1) {
       const allBold = children.every((c: any) => (c.marks || []).includes('strong'));
       const firstIsBold = (children[0]?.marks || []).includes('strong');
       if (!allBold && firstIsBold) {
@@ -380,6 +384,7 @@ const components: PortableTextComponents = {
         </a>
       );
     },
+    highlight: ({ children }) => <span className="pt-highlight">{children}</span>,
   },
 };
 

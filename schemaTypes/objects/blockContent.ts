@@ -27,6 +27,7 @@ export default defineType({
         decorators: [
           { title: 'Fett', value: 'strong' },
           { title: 'Kursiv', value: 'em' },
+          { title: 'Hervorhebung (rote Pille)', value: 'highlight' },
         ],
         annotations: [
           {
