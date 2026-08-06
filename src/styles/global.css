@@ -578,6 +578,26 @@ main {
   margin: 0;
 }
 
+.pt-columns--thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.pt-column--thumb {
+  background: none;
+  border: none;
+}
+
+.pt-column--thumb img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  margin: 0 !important;
+}
+
 .pt-column--form-box {
   background: linear-gradient(160deg, var(--color-sand-30) 0%, var(--color-sand-60) 100%);
   border-radius: 8px;

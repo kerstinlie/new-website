@@ -162,7 +162,18 @@ const components: PortableTextComponents = {
       // Titel + Button innerhalb eines gemeinsamen, sanft eingefaerbten
       // Abschnitts - anders als z.B. das Format-Icon-Grid oder ROI-Kacheln.
       const isStoryGrid = isGrid && cols.some((c: any) => hasImg(c.blocks) && hasCtaLink(c.blocks));
-      const gridClass = isStoryGrid ? 'pt-columns pt-columns--story-grid' : isGrid ? 'pt-columns pt-columns--grid' : 'pt-columns';
+      // Reine Bild-Reihen (z.B. die einzelnen Vorschauseiten eines PDFs unter
+      // dem Download-Formular) hatten im Original KEINEN Karten-Rahmen,
+      // sondern zeigten die Seiten einfach nebeneinander.
+      const isThumbGrid =
+        isGrid && cols.every((c: any) => (c.blocks || []).length === 1 && (c.blocks || [])[0]?._type === 'image');
+      const gridClass = isThumbGrid
+        ? 'pt-columns pt-columns--thumb-grid'
+        : isStoryGrid
+        ? 'pt-columns pt-columns--story-grid'
+        : isGrid
+        ? 'pt-columns pt-columns--grid'
+        : 'pt-columns';
       const columnsEl = (
         <div className={gridClass} style={gridTemplateColumns ? { gridTemplateColumns } : undefined}>
           {cols.map((col: any) => {
@@ -176,7 +187,13 @@ const components: PortableTextComponents = {
             // Original einen sandfarben hinterlegten Kasten um Ueberschrift+
             // Formular gemeinsam, statt eines weissen Hintergrunds.
             const hasForm = (col.blocks || []).some((b: any) => b._type === 'gatedForm');
-            let colClass = isStoryGrid ? 'pt-column pt-column--story' : isGrid ? 'pt-column pt-column--card' : 'pt-column';
+            let colClass = isThumbGrid
+              ? 'pt-column pt-column--thumb'
+              : isStoryGrid
+              ? 'pt-column pt-column--story'
+              : isGrid
+              ? 'pt-column pt-column--card'
+              : 'pt-column';
             if (hasForm) colClass += ' pt-column--form-box';
             return (
               <div key={col._key} className={colClass}>
