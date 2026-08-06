@@ -163,7 +163,7 @@ const components: PortableTextComponents = {
       // Abschnitts - anders als z.B. das Format-Icon-Grid oder ROI-Kacheln.
       const isStoryGrid = isGrid && cols.some((c: any) => hasImg(c.blocks) && hasCtaLink(c.blocks));
       const gridClass = isStoryGrid ? 'pt-columns pt-columns--story-grid' : isGrid ? 'pt-columns pt-columns--grid' : 'pt-columns';
-      return (
+      const columnsEl = (
         <div className={gridClass} style={gridTemplateColumns ? { gridTemplateColumns } : undefined}>
           {cols.map((col: any) => {
             const hasImage = hasImg(col.blocks);
@@ -189,6 +189,22 @@ const components: PortableTextComponents = {
           })}
         </div>
       );
+      // Manche Seiten (z.B. Success Stories) haben ganz oben ein farbig
+      // hinterlegtes "Hero-Band" (Logo + Ueberschrift + Bild vor sanftem
+      // Farbverlauf mit geschwungener Unterkante) statt eines normalen
+      // Spalten-Layouts auf weissem Hintergrund.
+      if (value.heroBand) {
+        const style = {
+          '--hero-band-a': value.heroBand.colorA,
+          '--hero-band-b': value.heroBand.colorB || value.heroBand.colorA,
+        } as any;
+        return (
+          <div className="pt-hero-band" style={style}>
+            <div className="pt-hero-band__inner">{columnsEl}</div>
+          </div>
+        );
+      }
+      return columnsEl;
     },
     iconBoxGrid: ({ value }) => {
       const items = value?.items || [];

@@ -11,6 +11,16 @@ export default defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'heroBand',
+      title: 'Hero-Band (farbiger Hintergrund oben)',
+      type: 'object',
+      description: 'Optional - nur gesetzt, wenn dies die farbig hinterlegte erste Sektion einer Seite ist (z.B. Success Stories).',
+      fields: [
+        defineField({ name: 'colorA', title: 'Farbe A', type: 'string' }),
+        defineField({ name: 'colorB', title: 'Farbe B', type: 'string' }),
+      ],
+    }),
+    defineField({
       name: 'columns',
       title: 'Spalten',
       type: 'array',

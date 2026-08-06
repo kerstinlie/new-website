@@ -16,26 +16,43 @@ const post = await getPostBySlug(slug as string);
 if (!post) {
   return Astro.redirect('/404');
 }
+
+// Manche Beitraege (Success Stories, aber auch einzelne News/Webinar-
+// Artikel) sind komplett eigens mit Elementor gestaltete Seiten mit einem
+// farbig hinterlegten Hero-Band ganz oben im body (Logo/Ueberschrift/Bild
+// vor Farbverlauf). Der generische Blog-Artikel-Kopf (Titelbild + H1 +
+// Autor/Datum/Kategorie-Zeile) kam im WordPress-Original dafuer NICHT vor
+// (die Ueberschrift steckt schon im Hero-Band) und wuerde nur doppelt wirken.
+const firstBlock = (post.body || [])[0];
+const isCustomStoryLayout = firstBlock?._type === 'columns' && !!firstBlock?.heroBand;
 ---
 <BaseLayout
   title={post.seo?.metaTitle || post.title}
   description={post.seo?.metaDescription || post.excerpt}
   lang="en"
 >
-  <div class="wrapper" style="padding-top: 2rem; padding-bottom: 3rem; max-width: 760px;">
-    {post.mainImage && (
-      <img src={urlFor(post.mainImage).width(1200).url()} alt={post.title} style="border-radius: 8px; margin-bottom: 1.5rem;" />
-    )}
-    <h1>{post.title}</h1>
-    <p style="color: var(--color-text-muted); font-size: 0.9rem;">
-      {post.author && <span>{post.author}</span>}
-      {post.publishedAt && <time datetime={post.publishedAt}> · {new Date(post.publishedAt).toLocaleDateString('de-DE')}</time>}
-      {post.categories && post.categories.length > 0 && (
-        <span> — {post.categories.join(', ')}</span>
+  {isCustomStoryLayout ? (
+    <div class="wrapper" style="padding-top: 0; padding-bottom: 3rem;">
+      <article>
+        <PortableTextBody value={post.body} client:load />
+      </article>
+    </div>
+  ) : (
+    <div class="wrapper" style="padding-top: 2rem; padding-bottom: 3rem; max-width: 760px;">
+      {post.mainImage && (
+        <img src={urlFor(post.mainImage).width(1200).url()} alt={post.title} style="border-radius: 8px; margin-bottom: 1.5rem;" />
       )}
-    </p>
-    <article>
-      <PortableTextBody value={post.body} client:load />
-    </article>
-  </div>
+      <h1>{post.title}</h1>
+      <p style="color: var(--color-text-muted); font-size: 0.9rem;">
+        {post.author && <span>{post.author}</span>}
+        {post.publishedAt && <time datetime={post.publishedAt}> · {new Date(post.publishedAt).toLocaleDateString('de-DE')}</time>}
+        {post.categories && post.categories.length > 0 && (
+          <span> — {post.categories.join(', ')}</span>
+        )}
+      </p>
+      <article>
+        <PortableTextBody value={post.body} client:load />
+      </article>
+    </div>
+  )}
 </BaseLayout>

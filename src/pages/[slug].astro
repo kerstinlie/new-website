@@ -37,6 +37,12 @@ let heroTextBlocks: any[] = [];
 let heroSlides: any[] = [];
 let restBody = page.body || [];
 
+// Seiten mit eigenem farbig hinterlegtem Hero-Band ganz oben (Logo/
+// Ueberschrift/Bild vor Farbverlauf, z.B. Produktseiten/Free-Trial) haben
+// die Ueberschrift schon im Hero-Band selbst - der generische Titel/Bild-
+// Kopf darueber waere doppelt und kam im WordPress-Original so nicht vor.
+const hasOwnHeroBand = !isHomeHero && page.body?.[0]?._type === 'columns' && !!page.body?.[0]?.heroBand;
+
 if (
   isHomeHero &&
   Array.isArray(page.body) &&
@@ -110,6 +116,13 @@ if (isHomeHero) {
         {listedPosts && <PostGrid posts={listedPosts} />}
       </div>
     </>
+  ) : hasOwnHeroBand ? (
+    <div class="wrapper" style="padding-top: 0; padding-bottom: 3rem;">
+      <article>
+        <PortableTextBody value={page.body} client:load />
+      </article>
+      {listedPosts && <PostGrid posts={listedPosts} />}
+    </div>
   ) : (
     <div class="wrapper" style="padding-top: 2rem; padding-bottom: 3rem;">
       {page.heroImage && (
