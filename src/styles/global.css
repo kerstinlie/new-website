@@ -858,7 +858,7 @@ main {
 }
 
 .pt-hero-band .pt-column > * {
-  margin-top: 0.5rem;
+  margin-top: 0.35rem !important;
 }
 
 .pt-hero-band .pt-column > *:first-child {
@@ -869,7 +869,7 @@ main {
    (nur im Quelltext auf zwei Absaetze aufgeteilt) - ohne Extra-Abstand
    dazwischen aneinanderreihen, damit es wie EIN Absatz wirkt. */
 .pt-hero-band .pt-column p + p {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 
 .pt-hero-band img {
@@ -904,6 +904,7 @@ main {
   color: #aa9687;
   line-height: 1.35;
   font-size: 0.95rem;
+  margin: 0;
 }
 
 .pt-hero-band p a {
