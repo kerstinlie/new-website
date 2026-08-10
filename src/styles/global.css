@@ -977,11 +977,27 @@ main {
   width: auto;
 }
 
-/* Datenblatt-Mockup in der zweiten Spalte nochmal um 25% groesser
-   (125% -> 156%). */
+/* Visual + Beschreibungstext linksbuendig statt zentriert, mit kleinem
+   Versatz (2rem, entspricht dem Innenpadding des Formular-Kastens weiter
+   unten) - rueckt beides bis zur markierten Linie / Formular-Kante nach
+   links, OHNE die Spaltenbreiten selbst zu aendern (das hatte zuvor die
+   linke Spalte mitverschoben). */
+.pt-hero-band .pt-columns > .pt-column:last-child {
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 2rem;
+}
+
+.pt-hero-band .pt-columns > .pt-column:last-child p {
+  text-align: left;
+}
+
+/* Bildbreite an die verbleibende Spaltenbreite (abzueglich Versatz)
+   angepasst, damit es trotz Linksbuendigkeit nicht ueber den rechten
+   Seitenrand hinaus laeuft. */
 .pt-hero-band .pt-columns > .pt-column:last-child img {
-  max-width: 156%;
-  width: 156%;
+  max-width: calc(100% - 2rem);
+  width: calc(100% - 2rem);
 }
 
 /* Zwei aufeinanderfolgende <p> aus dem Original sind derselbe Fliesstext
