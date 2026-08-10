@@ -997,11 +997,17 @@ main {
 }
 
 .pt-divider {
-  height: 0;
+  height: 16px;
   border: none;
-  border-top: 1px dashed #b9a795;
-  background: none;
   margin: 2rem 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #c2a488 0,
+    #c2a488 1.5px,
+    transparent 1.5px,
+    transparent 7px
+  );
+  background-repeat: repeat-x;
 }
 
 .pt-highlight {
