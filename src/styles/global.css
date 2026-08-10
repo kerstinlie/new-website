@@ -979,11 +979,15 @@ main {
    Hoehenbegrenzung haelt alle Logos im selben optischen Band - sie greift
    nur bei den hohen/quadratischen Logos, breite bleiben unveraendert. */
 .pt-hero-band .pt-columns > .pt-column:first-child img {
-  max-width: 60%;
-  max-height: 280px;
-  width: auto;
-  height: auto;
+  /* Fester "Rahmen" fuer das Kundenlogo: jedes Logo bekommt exakt dieselbe
+     Flaeche und wird per object-fit proportional hineinskaliert und zentriert
+     - unabhaengig davon, ob es quadratisch (Sonderpreis Baumarkt, WERO) oder
+     sehr breit (SWISS KRONO, STIHL) ist. Kein Verzerren, kein Beschneiden. */
+  width: 340px;
+  max-width: 100%;
+  height: 150px;
   object-fit: contain;
+  object-position: center;
 }
 
 /* Visual + Beschreibungstext linksbuendig statt zentriert, mit kleinem
