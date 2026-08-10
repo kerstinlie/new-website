@@ -1053,6 +1053,10 @@ main {
 .pt-hero-band .pt-highlight {
   font-size: 1em;
   padding: 0.1em 0.4em;
+  /* Der rote Balken soll immer auf EINER Zeile stehen. Ohne nowrap bricht
+     der hervorgehobene Text um und es entstehen zwei rote Kaesten
+     uebereinander. */
+  white-space: nowrap;
 }
 
 .pt-hero-band p {
