@@ -10,7 +10,10 @@
   --color-sand-60: #e6dcc8;
   --font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-heading: 'Roboto', var(--font-sans);
-  --max-width: 1200px;
+  /* Original-WordPress-Theme nutzt die Bildschirmbreite deutlich staerker aus
+     als eine typische 1200px-Box - auf grossen Bildschirmen wirkte die Seite
+     dadurch sehr schmal/zentriert mit viel Leerraum links/rechts. */
+  --max-width: 1600px;
 }
 
 * {
@@ -884,7 +887,7 @@ main {
 }
 
 .pt-hero-band__inner {
-  max-width: 1100px;
+  max-width: var(--max-width);
   margin: 0 auto;
 }
 
