@@ -971,10 +971,19 @@ main {
   margin-top: 0;
 }
 
-/* Logo in der ersten Spalte war deutlich zu gross - ca. 30% kleiner. */
+/* Kundenlogo in der ersten Spalte.
+   Die Logos der einzelnen Success Stories haben sehr unterschiedliche
+   Seitenverhaeltnisse (von 1:1 wie Sonderpreis Baumarkt/WERO bis 6,8:1 wie
+   SWISS KRONO). Eine reine Breitenbegrenzung liess quadratische Logos
+   dadurch um ein Vielfaches hoeher werden als breite. Die zusaetzliche
+   Hoehenbegrenzung haelt alle Logos im selben optischen Band - sie greift
+   nur bei den hohen/quadratischen Logos, breite bleiben unveraendert. */
 .pt-hero-band .pt-columns > .pt-column:first-child img {
   max-width: 60%;
+  max-height: 280px;
   width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Visual + Beschreibungstext linksbuendig statt zentriert, mit kleinem
