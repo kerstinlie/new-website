@@ -25,16 +25,19 @@ if (!post) {
 // (die Ueberschrift steckt schon im Hero-Band) und wuerde nur doppelt wirken.
 const firstBlock = (post.body || [])[0];
 const isCustomStoryLayout = firstBlock?._type === 'columns' && !!firstBlock?.heroBand;
+// post.language ist (anders als bei Seiten) noch nicht gepflegt - deutsche
+// Beitraege sind aber durchgaengig am "-de"-Slug-Suffix erkennbar.
+const lang = post.language || (post.slug?.current?.endsWith('-de') ? 'de' : 'en');
 ---
 <BaseLayout
   title={post.seo?.metaTitle || post.title}
   description={post.seo?.metaDescription || post.excerpt}
-  lang="en"
+  lang={lang}
 >
   {isCustomStoryLayout ? (
     <div class="wrapper" style="padding-top: 0; padding-bottom: 3rem;">
       <article>
-        <PortableTextBody value={post.body} client:load />
+        <PortableTextBody value={post.body} language={lang} client:load />
       </article>
     </div>
   ) : (
@@ -51,7 +54,7 @@ const isCustomStoryLayout = firstBlock?._type === 'columns' && !!firstBlock?.her
         )}
       </p>
       <article>
-        <PortableTextBody value={post.body} client:load />
+        <PortableTextBody value={post.body} language={lang} client:load />
       </article>
     </div>
   )}

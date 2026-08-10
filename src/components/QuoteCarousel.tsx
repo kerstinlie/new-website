@@ -23,7 +23,6 @@ export default function QuoteCarousel({ items }: { items: QuoteItem[] }) {
           {(item.authorName || item.authorRole) && (
             <p className="quote-carousel__author">
               {item.authorName && <strong>{item.authorName}</strong>}
-              {item.authorName && item.authorRole && <br />}
               {item.authorRole}
             </p>
           )}

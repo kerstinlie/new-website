@@ -729,6 +729,11 @@ main {
 
 .gated-form__consent input {
   margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.gated-form__consent span {
+  flex: 1;
 }
 
 .gated-form__options {

@@ -2,6 +2,41 @@ import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import { urlFor } from '../lib/sanity';
 import QuoteCarousel from './QuoteCarousel';
 
+// Sprache der aktuell gerenderten Seite. Wird von PortableTextBody() ganz zu
+// Beginn des Renders gesetzt (synchron, daher unproblematisch fuer SSR) und
+// von Renderern wie "gatedForm" gelesen, um Formulartexte zu uebersetzen.
+let currentLanguage: 'de' | 'en' = 'de';
+
+const FORM_TEXT = {
+  de: {
+    botLabel: 'Bitte nicht ausfüllen:',
+    name: 'Name*',
+    email: 'E-Mail*',
+    company: 'Firma',
+    salesContact: 'Ich möchte mit einem Vertriebsmitarbeiter sprechen.',
+    newsletter: 'Ich möchte den Newsletter abonnieren.',
+    consentPre: 'Ich habe die ',
+    consentLink: 'Datenschutzerklärung',
+    consentPost:
+      ' zur Kenntnis genommen. Hinweis: Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail widerrufen.',
+    privacyHref: '/datenschutzerklaerung-de',
+    submit: 'Absenden',
+  },
+  en: {
+    botLabel: 'Please leave this field empty:',
+    name: 'Name*',
+    email: 'Email*',
+    company: 'Company',
+    salesContact: 'I would like to speak with a sales representative.',
+    newsletter: 'I would like to subscribe to the newsletter.',
+    consentPre: 'I have read the ',
+    consentLink: 'privacy policy',
+    consentPost: '. Note: you can withdraw your consent for the future at any time by email.',
+    privacyHref: '/privacy-policy-en',
+    submit: 'Submit',
+  },
+} as const;
+
 function youtubeEmbedUrl(url: string): string | null {
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
   return match ? `https://www.youtube.com/embed/${match[1]}` : null;
@@ -312,8 +347,9 @@ const components: PortableTextComponents = {
     },
     gatedForm: ({ value }) => {
       if (!value) return null;
+      const t = FORM_TEXT[currentLanguage] || FORM_TEXT.en;
       const formName = value.formGroup || 'contact-request';
-      const buttonText = value.buttonText || 'Absenden';
+      const buttonText = value.buttonText || t.submit;
       const thanksParams = new URLSearchParams();
       if (value.redirectUrl) thanksParams.set('redirect', value.redirectUrl);
       if (value.successMessage) thanksParams.set('message', value.successMessage);
@@ -332,38 +368,42 @@ const components: PortableTextComponents = {
           {value.notifyEmail && <input type="hidden" name="notify_email" value={value.notifyEmail} />}
           <p className="gated-form__bot-field">
             <label>
-              Bitte nicht ausfüllen: <input name="bot-field" />
+              {t.botLabel} <input name="bot-field" />
             </label>
           </p>
           <div className="gated-form__row">
             <label>
-              Name*
+              {t.name}
               <input type="text" name="name" required />
             </label>
             <label>
-              E-Mail*
+              {t.email}
               <input type="email" name="email" required />
             </label>
           </div>
           <label>
-            Firma
+            {t.company}
             <input type="text" name="company" />
           </label>
           {value.formGroup === 'pdf-download' && (
             <div className="gated-form__options">
               <label className="gated-form__checkbox">
                 <input type="checkbox" name="wants_sales_contact" />
-                Ich möchte mit einem Vertriebsmitarbeiter sprechen.
+                {t.salesContact}
               </label>
               <label className="gated-form__checkbox">
                 <input type="checkbox" name="wants_newsletter" />
-                Ich möchte den Newsletter abonnieren.
+                {t.newsletter}
               </label>
             </div>
           )}
           <label className="gated-form__consent">
             <input type="checkbox" name="consent" required />
-            Ich habe die <a href="/privacy-policy-en">Datenschutzerklärung</a> zur Kenntnis genommen. Hinweis: Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail widerrufen.
+            <span>
+              {t.consentPre}
+              <a href={t.privacyHref}>{t.consentLink}</a>
+              {t.consentPost}
+            </span>
           </label>
           <button type="submit" className="pt-cta-btn">
             {buttonText}
@@ -437,7 +477,8 @@ const components: PortableTextComponents = {
   },
 };
 
-export default function PortableTextBody({ value }: { value: any }) {
+export default function PortableTextBody({ value, language }: { value: any; language?: string }) {
   if (!value) return null;
+  currentLanguage = language === 'de' ? 'de' : 'en';
   return <PortableText value={groupImageStrips(splitLeadingBoldBlocks(value))} components={components} />;
 }

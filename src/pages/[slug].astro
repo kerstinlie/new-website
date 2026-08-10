@@ -105,12 +105,12 @@ if (isHomeHero) {
         <article>
           {newsBeforeBody ? (
             <>
-              <PortableTextBody value={newsBeforeBody} client:load />
+              <PortableTextBody value={newsBeforeBody} language={lang} client:load />
               {newsPreviewPosts.length > 0 && <PostGrid posts={newsPreviewPosts} />}
-              <PortableTextBody value={newsAfterBody} client:load />
+              <PortableTextBody value={newsAfterBody} language={lang} client:load />
             </>
           ) : (
-            <PortableTextBody value={restBody} client:load />
+            <PortableTextBody value={restBody} language={lang} client:load />
           )}
         </article>
         {listedPosts && <PostGrid posts={listedPosts} />}
@@ -119,7 +119,7 @@ if (isHomeHero) {
   ) : hasOwnHeroBand ? (
     <div class="wrapper" style="padding-top: 0; padding-bottom: 3rem;">
       <article>
-        <PortableTextBody value={page.body} client:load />
+        <PortableTextBody value={page.body} language={lang} client:load />
       </article>
       {listedPosts && <PostGrid posts={listedPosts} />}
     </div>
@@ -130,7 +130,7 @@ if (isHomeHero) {
       )}
       <h1>{page.title}</h1>
       <article>
-        <PortableTextBody value={page.body} client:load />
+        <PortableTextBody value={page.body} language={lang} client:load />
       </article>
       {listedPosts && <PostGrid posts={listedPosts} />}
     </div>
