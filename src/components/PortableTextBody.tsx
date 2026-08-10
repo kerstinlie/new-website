@@ -240,6 +240,15 @@ const components: PortableTextComponents = {
             // Original einen sandfarben hinterlegten Kasten um Ueberschrift+
             // Formular gemeinsam, statt eines weissen Hintergrunds.
             const hasForm = (col.blocks || []).some((b: any) => b._type === 'gatedForm');
+            // Die einzelne Cover-Abbildung neben dem Download-Formular (z.B.
+            // "Download Case Study") soll gross und dynamisch/leicht schraeg
+            // wirken statt klein und statisch - wird erkannt als Spalte mit
+            // GENAU einem Bild, deren Nachbarspalte ein Formular enthaelt.
+            const isSingleImageCol = (col.blocks || []).length === 1 && (col.blocks || [])[0]?._type === 'image';
+            const siblingHasForm = cols.some(
+              (c: any) => c !== col && (c.blocks || []).some((b: any) => b._type === 'gatedForm')
+            );
+            const isCoverCol = isSingleImageCol && siblingHasForm;
             let colClass = isThumbGrid
               ? 'pt-column pt-column--thumb'
               : isStoryGrid
@@ -248,6 +257,7 @@ const components: PortableTextComponents = {
               ? 'pt-column pt-column--card'
               : 'pt-column';
             if (hasForm) colClass += ' pt-column--form-box';
+            if (isCoverCol) colClass += ' pt-column--cover';
             return (
               <div key={col._key} className={colClass}>
                 {headingText && (
