@@ -9,32 +9,6 @@ type QuoteItem = {
   image?: any;
 };
 
-// Firmenname -> Unternehmensseite. Wird in der Autorenzeile ("Design Studio
-// Manager, Portwest") automatisch verlinkt. Bei weiteren Success Stories
-// hier ergänzen.
-const COMPANY_LINKS: Record<string, string> = {
-  Portwest: 'https://www.portwest.com/market/',
-};
-
-function linkifyCompany(text?: string) {
-  if (!text) return text;
-  for (const [name, url] of Object.entries(COMPANY_LINKS)) {
-    const idx = text.indexOf(name);
-    if (idx !== -1) {
-      return (
-        <>
-          {text.slice(0, idx)}
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            {name}
-          </a>
-          {text.slice(idx + name.length)}
-        </>
-      );
-    }
-  }
-  return text;
-}
-
 export default function QuoteCarousel({ items }: { items: QuoteItem[] }) {
   const [index, setIndex] = useState(0);
   if (!items?.length) return null;
@@ -50,7 +24,7 @@ export default function QuoteCarousel({ items }: { items: QuoteItem[] }) {
             <p className="quote-carousel__author">
               {item.authorName && <strong>{item.authorName}</strong>}
               {item.authorName && item.authorRole && <br />}
-              {linkifyCompany(item.authorRole)}
+              {item.authorRole}
             </p>
           )}
         </div>

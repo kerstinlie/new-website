@@ -799,11 +799,6 @@ main {
   display: block;
 }
 
-.quote-carousel__author a {
-  color: inherit;
-  text-decoration: underline;
-}
-
 .quote-carousel__image {
   flex: 1;
   display: flex;
