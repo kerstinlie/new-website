@@ -929,7 +929,7 @@ main {
   margin-left: -50vw;
   margin-right: -50vw;
   width: 100vw;
-  padding: 3rem 1.5rem;
+  padding: 1.75rem 1.5rem 3rem;
   margin-top: -1px;
   margin-bottom: 2rem;
   /* Gleicher Farbverlauf wie der Hero-Bereich der Startseite, statt der
@@ -956,9 +956,11 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* "center" statt "flex-end", damit der Inhalt vertikal mittig im Band
-     sitzt statt nach unten gedrueckt zu wirken. */
-  justify-content: center;
+  /* flex-end, damit Beschreibungstext (Ende der rechten Spalte) und
+     "GLOBAL AGILITY"-Kasten (Ende der linken Spalte) unten buendig
+     abschliessen; das ungleiche Weissraum-Gefuehl oben wird stattdessen
+     ueber ein reduziertes Top-Padding am Band selbst korrigiert. */
+  justify-content: flex-end;
 }
 
 .pt-hero-band .pt-column > * {
@@ -980,6 +982,21 @@ main {
 .pt-hero-band .pt-columns > .pt-column:last-child img {
   max-width: 156%;
   width: 156%;
+}
+
+/* Visual + Beschreibungstext linksbuendig statt zentriert, und soweit nach
+   links verschoben, dass die linke Kante etwa mit dem "D" von "Download" im
+   Formular-Kasten weiter unten auf der Seite fluchtet (das Formular sitzt in
+   einer 33/66-Spalte, das Hero-Band dagegen in einer 50/50-Spalte - die
+   Differenz wird hier per Offset ausgeglichen). */
+.pt-hero-band .pt-columns > .pt-column:last-child {
+  align-items: flex-start;
+  text-align: left;
+  margin-left: calc(var(--max-width) * -0.15);
+}
+
+.pt-hero-band .pt-columns > .pt-column:last-child p {
+  text-align: left;
 }
 
 /* Zwei aufeinanderfolgende <p> aus dem Original sind derselbe Fliesstext
