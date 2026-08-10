@@ -988,21 +988,17 @@ main {
   margin-left: 2rem;
 }
 
-/* Beschreibungstext auf dieselbe Breite wie das Visual bringen (statt der
-   generischen 420px-Begrenzung) und mittig setzen - dadurch stehen Bild und
-   Text sauber uebereinander statt versetzt. */
+/* Beschreibungstext wie zuvor auf 420px begrenzt und zentriert gesetzt. */
 .pt-hero-band .pt-columns > .pt-column:last-child p {
   text-align: center;
-  max-width: calc(100% - 2rem);
-  width: calc(100% - 2rem);
+  max-width: 420px;
 }
 
-/* Bildbreite an die verbleibende Spaltenbreite (abzueglich Versatz)
-   angepasst, damit es trotz Linksbuendigkeit nicht ueber den rechten
-   Seitenrand hinaus laeuft. */
+/* Visual auf dieselbe Breite wie der Beschreibungstext bringen, damit es
+   exakt darueber sitzt statt breiter/versetzt zu sein. */
 .pt-hero-band .pt-columns > .pt-column:last-child img {
-  max-width: calc(100% - 2rem);
-  width: calc(100% - 2rem);
+  max-width: 420px;
+  width: 420px;
 }
 
 /* Zwei aufeinanderfolgende <p> aus dem Original sind derselbe Fliesstext
