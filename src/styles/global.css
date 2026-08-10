@@ -946,13 +946,19 @@ main {
 .pt-hero-band .pt-columns {
   text-align: center;
   align-items: stretch;
+  /* Naeher zusammenrruecken statt weit auseinander zu stehen, damit Logo/
+     Headline links und Visual/Beschreibung rechts wie EIN zusammengehoeriger
+     Bereich wirken. */
+  gap: 0.5rem 1rem;
 }
 
 .pt-hero-band .pt-column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  /* "center" statt "flex-end", damit der Inhalt vertikal mittig im Band
+     sitzt statt nach unten gedrueckt zu wirken. */
+  justify-content: center;
 }
 
 .pt-hero-band .pt-column > * {
@@ -969,10 +975,11 @@ main {
   width: auto;
 }
 
-/* Datenblatt-Mockup in der zweiten Spalte ca. 25% groesser. */
+/* Datenblatt-Mockup in der zweiten Spalte nochmal um 25% groesser
+   (125% -> 156%). */
 .pt-hero-band .pt-columns > .pt-column:last-child img {
-  max-width: 125%;
-  width: 125%;
+  max-width: 156%;
+  width: 156%;
 }
 
 /* Zwei aufeinanderfolgende <p> aus dem Original sind derselbe Fliesstext
@@ -989,9 +996,13 @@ main {
 .pt-hero-band .pt-divider {
   width: 320px;
   max-width: 70%;
+  height: 0;
   margin: 0.1rem auto !important;
   border: none;
   border-top: 2px solid #8a7666;
+  /* Ueberschreibt Hoehe/Hintergrund-Streifenmuster der generischen
+     .pt-divider-Regel - hier soll nur die schlichte Linie zu sehen sein. */
+  background: none;
 }
 
 .pt-hero-band h1,
