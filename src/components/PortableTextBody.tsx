@@ -417,11 +417,11 @@ const components: PortableTextComponents = {
             <div className="gated-form__options">
               <label className="gated-form__checkbox">
                 <input type="checkbox" name="wants_sales_contact" />
-                {t.salesContact}
+                <span>{t.salesContact}</span>
               </label>
               <label className="gated-form__checkbox">
                 <input type="checkbox" name="wants_newsletter" />
-                {t.newsletter}
+                <span>{t.newsletter}</span>
               </label>
             </div>
           )}

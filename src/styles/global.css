@@ -758,7 +758,9 @@ main {
   gap: 0.9rem;
 }
 
-.gated-form__consent {
+/* Hoehere Spezifitaet als ".gated-form label" (Klasse+Element), damit die
+   Zeilen-Anordnung hier zuverlaessig gewinnt statt der Spalten-Anordnung. */
+.gated-form .gated-form__consent {
   flex-direction: row;
   align-items: flex-start;
   font-size: 0.8rem;
@@ -782,7 +784,7 @@ main {
   gap: 0.5rem;
 }
 
-.gated-form__checkbox {
+.gated-form .gated-form__checkbox {
   flex-direction: row;
   align-items: flex-start;
   font-size: 0.85rem;
@@ -792,6 +794,11 @@ main {
 
 .gated-form__checkbox input {
   margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.gated-form__checkbox span {
+  flex: 1;
 }
 
 .gated-form button {
