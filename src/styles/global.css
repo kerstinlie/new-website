@@ -893,13 +893,14 @@ main {
 
 .pt-hero-band .pt-columns {
   text-align: center;
+  align-items: stretch;
 }
 
 .pt-hero-band .pt-column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .pt-hero-band .pt-column > * {
