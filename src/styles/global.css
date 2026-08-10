@@ -950,12 +950,6 @@ main {
      Headline links und Visual/Beschreibung rechts wie EIN zusammengehoeriger
      Bereich wirken. */
   gap: 0.5rem 1rem;
-  /* Erzwingt dieselbe 33/67-Spaltenaufteilung wie der Formular-Abschnitt
-     weiter unten (ueberschreibt die von den Sanity-Spaltenbreiten 50/50
-     gesetzte Inline-Style), damit die Spaltengrenze an derselben
-     horizontalen Position liegt und sich Visual/Formular-Titel exakt
-     ausrichten lassen. */
-  grid-template-columns: 33% 67% !important;
 }
 
 .pt-hero-band .pt-column {
@@ -983,27 +977,11 @@ main {
   width: auto;
 }
 
-/* Datenblatt-Mockup in der zweiten (jetzt 67% statt 50% breiten) Spalte -
-   Breite entsprechend hochskaliert, damit die absolute Bildgroesse gleich
-   bleibt (156% * 50/33 ≈ 236%). */
+/* Datenblatt-Mockup in der zweiten Spalte nochmal um 25% groesser
+   (125% -> 156%). */
 .pt-hero-band .pt-columns > .pt-column:last-child img {
-  max-width: 236%;
-  width: 236%;
-}
-
-/* Visual + Beschreibungstext linksbuendig statt zentriert. Die Spalte selbst
-   fluchtet jetzt dank der erzwungenen 33/67-Aufteilung bereits mit der
-   Formular-Spalte weiter unten; der 2rem-Versatz gleicht das Innenpadding
-   des Formular-Kastens (.pt-column--form-box) aus, damit das Visual exakt
-   mit dem Formular-Titel ("DOWNLOAD CASE STUDY") beginnt. */
-.pt-hero-band .pt-columns > .pt-column:last-child {
-  align-items: flex-start;
-  text-align: left;
-  margin-left: 2rem;
-}
-
-.pt-hero-band .pt-columns > .pt-column:last-child p {
-  text-align: left;
+  max-width: 156%;
+  width: 156%;
 }
 
 /* Zwei aufeinanderfolgende <p> aus dem Original sind derselbe Fliesstext
