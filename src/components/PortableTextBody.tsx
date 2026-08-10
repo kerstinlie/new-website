@@ -63,6 +63,24 @@ function dedupeConsecutiveBlocks(blocks: any[]): any[] {
   return out;
 }
 
+// Ueberschriften (H2/H3) haben bereits ihre eigene Trennlinie darunter
+// (border-bottom). Folgt direkt danach noch ein separates "divider"-Widget
+// aus dem WordPress-Original, entsteht optisch eine doppelte Linie mit
+// unschoenem Abstand dazwischen - im Original gibt es dort nur EINE Linie.
+// Der redundante Divider wird deshalb entfernt.
+function dropDividerAfterHeading(blocks: any[]): any[] {
+  const out: any[] = [];
+  for (const b of blocks || []) {
+    const prev = out[out.length - 1];
+    const prevIsHeading = prev?._type === 'block' && ['h2', 'h3', 'h4'].includes(prev.style);
+    if (b?._type === 'divider' && prevIsHeading) {
+      continue;
+    }
+    out.push(b);
+  }
+  return out;
+}
+
 // Manche Abschnitte (z.B. "Highlights", "A ROi you can count on") bestehen aus
 // kurzen, komplett fett formatierten Bloecken gefolgt von einem Beschreibungs-
 // text - im Original sind das eigentlich Mini-Ueberschriften, kommen aus dem
@@ -238,7 +256,7 @@ const components: PortableTextComponents = {
                   </div>
                 )}
                 <PortableText
-                  value={groupImageStrips(splitLeadingBoldBlocks(dedupeConsecutiveBlocks(col.blocks)))}
+                  value={groupImageStrips(splitLeadingBoldBlocks(dropDividerAfterHeading(dedupeConsecutiveBlocks(col.blocks))))}
                   components={components}
                 />
               </div>
@@ -480,5 +498,10 @@ const components: PortableTextComponents = {
 export default function PortableTextBody({ value, language }: { value: any; language?: string }) {
   if (!value) return null;
   currentLanguage = language === 'de' ? 'de' : 'en';
-  return <PortableText value={groupImageStrips(splitLeadingBoldBlocks(value))} components={components} />;
+  return (
+    <PortableText
+      value={groupImageStrips(splitLeadingBoldBlocks(dropDividerAfterHeading(value)))}
+      components={components}
+    />
+  );
 }
