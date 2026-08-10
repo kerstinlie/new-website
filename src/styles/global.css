@@ -915,6 +915,12 @@ main {
   width: auto;
 }
 
+/* Datenblatt-Mockup in der zweiten Spalte ca. 25% groesser. */
+.pt-hero-band .pt-columns > .pt-column:last-child img {
+  max-width: 125%;
+  width: 125%;
+}
+
 /* Zwei aufeinanderfolgende <p> aus dem Original sind derselbe Fliesstext
    (nur im Quelltext auf zwei Absaetze aufgeteilt) - ohne Extra-Abstand
    dazwischen aneinanderreihen, damit es wie EIN Absatz wirkt. */
@@ -927,10 +933,11 @@ main {
 }
 
 .pt-hero-band .pt-divider {
-  width: 140px;
-  margin: 0.6rem auto !important;
+  width: 320px;
+  max-width: 70%;
+  margin: 0.1rem auto !important;
   border: none;
-  border-top: 1px solid var(--color-border);
+  border-top: 2px solid #8a7666;
 }
 
 .pt-hero-band h1,
@@ -941,6 +948,7 @@ main {
   border-bottom: none;
   padding-bottom: 0;
   margin-bottom: 0;
+  max-width: 480px;
   font-size: clamp(2.1rem, 4vw, 3rem);
   line-height: 1.15;
 }
