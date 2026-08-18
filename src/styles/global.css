@@ -955,6 +955,98 @@ main {
   }
 }
 
+/* ── Seitenabschnitte ──────────────────────────────────────────────
+   Der Hintergrund laeuft ueber die volle Fensterbreite (Full-Bleed aus dem
+   zentrierten Inhaltscontainer heraus), der Inhalt bleibt in Satzbreite. */
+.pt-section {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  padding: 3.5rem 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.pt-section__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Direkt aufeinanderfolgende Abschnitte nicht doppelt trennen. */
+.pt-section + .pt-section {
+  margin-top: -2.5rem;
+}
+
+.pt-section--sp-small {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.pt-section--sp-large {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.pt-section--sand {
+  background: var(--color-sand-30);
+}
+
+.pt-section--gradient {
+  background: linear-gradient(160deg, var(--color-sand-30) 0%, #fbf9f7 55%, var(--color-bg) 100%);
+}
+
+.pt-section--none {
+  background: none;
+}
+
+.pt-section--dark {
+  background: #313131;
+  color: #f5f2f0;
+}
+
+.pt-section--accent {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* Auf dunklem und rotem Grund muessen Ueberschriften, Trennlinien und Links
+   mitziehen - sonst bleiben sie dunkel auf dunkel. */
+.pt-section--dark h2,
+.pt-section--dark h3,
+.pt-section--dark h4,
+.pt-section--accent h2,
+.pt-section--accent h3,
+.pt-section--accent h4 {
+  color: inherit;
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.pt-section--dark p,
+.pt-section--accent p,
+.pt-section--dark li,
+.pt-section--accent li {
+  color: inherit;
+}
+
+.pt-section--dark a,
+.pt-section--accent a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.pt-section--accent .pt-cta-btn {
+  background: #fff;
+  color: var(--color-primary) !important;
+}
+
+.pt-section--accent .pt-highlight {
+  background: #fff;
+  color: var(--color-primary);
+}
+
 .pt-hero-band {
   position: relative;
   left: 50%;

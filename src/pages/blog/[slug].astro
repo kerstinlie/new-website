@@ -24,7 +24,9 @@ if (!post) {
 // Autor/Datum/Kategorie-Zeile) kam im WordPress-Original dafuer NICHT vor
 // (die Ueberschrift steckt schon im Hero-Band) und wuerde nur doppelt wirken.
 const firstBlock = (post.body || [])[0];
-const isCustomStoryLayout = firstBlock?._type === 'columns' && !!firstBlock?.heroBand;
+const isCustomStoryLayout =
+  (firstBlock?._type === 'columns' && !!firstBlock?.heroBand) ||
+  (firstBlock?._type === 'section' && (firstBlock?.variant || 'sand') !== 'none');
 // post.language ist (anders als bei Seiten) noch nicht gepflegt - deutsche
 // Beitraege sind aber durchgaengig am "-de"-Slug-Suffix erkennbar.
 const lang = post.language || (post.slug?.current?.endsWith('-de') ? 'de' : 'en');

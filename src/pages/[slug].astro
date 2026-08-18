@@ -50,7 +50,12 @@ let restBody = page.body || [];
 // Ueberschrift/Bild vor Farbverlauf, z.B. Produktseiten/Free-Trial) haben
 // die Ueberschrift schon im Hero-Band selbst - der generische Titel/Bild-
 // Kopf darueber waere doppelt und kam im WordPress-Original so nicht vor.
-const hasOwnHeroBand = !isHomeHero && page.body?.[0]?._type === 'columns' && !!page.body?.[0]?.heroBand;
+// Gleiches gilt fuer Seiten, die mit einem farbig abgesetzten Abschnitt
+// beginnen - auch dort traegt der Abschnitt selbst die Einstiegsueberschrift.
+const startsWithBand =
+  page.body?.[0]?._type === 'section' && (page.body?.[0]?.variant || 'sand') !== 'none';
+const hasOwnHeroBand =
+  !isHomeHero && ((page.body?.[0]?._type === 'columns' && !!page.body?.[0]?.heroBand) || startsWithBand);
 
 if (
   isHomeHero &&

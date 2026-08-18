@@ -93,6 +93,10 @@ async function resolveBody(blocks) {
         });
       }
       // wenn Upload fehlschlaegt, Block einfach auslassen statt Fehler zu werfen
+    } else if (block._type === 'section') {
+      // Abschnitte umschliessen wieder ganze Blocklisten -> rekursiv aufloesen,
+      // sonst blieben darin liegende Bilder unaufgeloest.
+      resolved.push({ ...block, blocks: await resolveBody(block.blocks || []) });
     } else if (block._type === 'columns') {
       // Spalten enthalten selbst wieder Bloecke (inkl. moeglicher externalImage-
       // Platzhalter) -> rekursiv aufloesen.

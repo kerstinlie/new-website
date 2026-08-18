@@ -182,6 +182,25 @@ const components: PortableTextComponents = {
         />
       );
     },
+    // Farbig abgesetzter Seitenabschnitt. Bildet den Wechsel aus weissen und
+    // eingefaerbten Baendern der Originalseite ab; der Hintergrund laeuft ueber
+    // die volle Fensterbreite, der Inhalt bleibt in der normalen Satzbreite.
+    section: ({ value }) => {
+      const blocks = value?.blocks || [];
+      if (!blocks.length) return null;
+      const variant = value?.variant || 'sand';
+      const spacing = value?.spacing || 'normal';
+      return (
+        <div className={`pt-section pt-section--${variant} pt-section--sp-${spacing}`}>
+          <div className="pt-section__inner">
+            <PortableText
+              value={groupImageStrips(splitLeadingBoldBlocks(dropDividerAfterHeading(dedupeConsecutiveBlocks(blocks))))}
+              components={components}
+            />
+          </div>
+        </div>
+      );
+    },
     columns: ({ value }) => {
       const cols = value?.columns || [];
       if (!cols.length) return null;
