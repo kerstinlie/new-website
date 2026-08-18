@@ -6,10 +6,19 @@ import PostGrid from '../components/PostGrid.astro';
 import HomeHero from '../components/HomeHero';
 
 export async function getStaticPaths() {
+  // Slugs, fuer die es eine eigens gestaltete Astro-Seite unter src/pages
+  // gibt. Diese duerfen hier NICHT zusaetzlich aus Sanity erzeugt werden,
+  // sonst beanspruchen zwei Routen denselben Pfad.
+  // Bewusst INNERHALB der Funktion: Astro fuehrt getStaticPaths isoliert aus,
+  // Variablen aus dem umgebenden Frontmatter sind dort nicht sichtbar.
+  const customPageSlugs = new Set(['datasheet-automation-app']);
+
   const pages = await getAllPages();
-  return pages.map((page) => ({
-    params: { slug: page.slug.current },
-  }));
+  return pages
+    .filter((page) => !customPageSlugs.has(page.slug.current))
+    .map((page) => ({
+      params: { slug: page.slug.current },
+    }));
 }
 
 const { slug } = Astro.params;

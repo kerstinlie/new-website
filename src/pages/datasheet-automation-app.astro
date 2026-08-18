@@ -1,0 +1,924 @@
+---
+// Landing Page "Datasheet Automation App"
+// Navigation: THE SOLUTION > The Suite > Automation
+//
+// Das Markup stammt aus der gelieferten WordPress-/Elementor-Fassung und wird
+// hier als eigenstaendige Astro-Seite gefuehrt (statt als Sanity-Inhalt), weil
+// es eine fest gestaltete Landing Page mit eigenem CSS und eigener Interaktion
+// ist. Die urspruenglich als Base64 eingebetteten Bilder liegen jetzt unter
+// /public/images/datasheet/, damit die Seite nicht mehrere MB gross wird.
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = '{\n  "@context": "https://schema.org",\n  "@graph": [\n    {\n      "@type": "Organization",\n      "@id": "https://www.inbetween.de/#organization",\n      "name": "InBetween Deutschland GmbH",\n      "url": "https://www.inbetween.de/",\n      "telephone": "+49 711 72 23 32 0",\n      "address": {\n        "@type": "PostalAddress",\n        "streetAddress": "Friedrichstraße 39",\n        "postalCode": "70174",\n        "addressLocality": "Stuttgart",\n        "addressCountry": "DE"\n      }\n    },\n    {\n      "@type": "SoftwareApplication",\n      "@id": "https://www.inbetween.de/datasheet-automation-akeneo#software",\n      "name": "InBetween Datasheet Automation",\n      "alternateName": [\n        "Datasheet Automation for Akeneo",\n        "Akeneo Datasheet Automation",\n        "Product Datasheet Automation"\n      ],\n      "applicationCategory": "BusinessApplication",\n      "operatingSystem": "Cloud-based",\n      "description": "Cloud-based software for automated product datasheet PDF generation directly from Akeneo PIM using live product data, predefined templates, and automated publishing workflows.",\n      "brand": {\n        "@id": "https://www.inbetween.de/#organization"\n      },\n      "offers": [\n        {\n          "@type": "Offer",\n          "name": "Datasheet Automation",\n          "price": "8900",\n          "priceCurrency": "EUR",\n          "description": "On-demand single-product PDF generation from Akeneo."\n        },\n        {\n          "@type": "Offer",\n          "name": "Datasheet Automation Pro",\n          "price": "12900",\n          "priceCurrency": "EUR",\n          "description": "Scheduled bulk automation, product grid triggering, and multi-product delta updates."\n        }\n      ],\n      "featureList": [\n        "PDF generation from Akeneo PIM",\n        "Live product data synchronization",\n        "Brand-customizable datasheet templates structured around selected product data",\n        "Linked Akeneo assets",\n        "Scheduled bulk automation in Pro",\n        "Product grid triggering in Pro",\n        "Multi-product delta updates in Pro"\n      ]\n    },\n    {\n      "@type": "FAQPage",\n      "@id": "https://www.inbetween.de/datasheet-automation-akeneo#faq",\n      "mainEntity": [\n        {\n          "@type": "Question",\n          "name": "What is Datasheet Automation?",\n          "acceptedAnswer": {\n            "@type": "Answer",\n            "text": "Datasheet Automation is cloud-based software by InBetween that generates product datasheets as PDF files directly from Akeneo PIM using live product data and predefined templates."\n          }\n        },\n        {\n          "@type": "Question",\n          "name": "How does Datasheet Automation work with Akeneo PIM?",\n          "acceptedAnswer": {\n            "@type": "Answer",\n            "text": "The solution integrates into Akeneo, retrieves current product information before generation, creates a PDF datasheet, and saves the finished file back into Akeneo as a linked product asset."\n          }\n        },\n        {\n          "@type": "Question",\n          "name": "What is the difference between Datasheet Automation and Datasheet Automation Pro?",\n          "acceptedAnswer": {\n            "@type": "Answer",\n            "text": "Datasheet Automation supports on-demand single-product PDF generation from the Akeneo product header. Datasheet Automation Pro additionally supports scheduled bulk automation, product grid triggering, and multi-product delta updates."\n          }\n        },\n        {\n          "@type": "Question",\n          "name": "Can datasheets be generated automatically?",\n          "acceptedAnswer": {\n            "@type": "Answer",\n            "text": "Yes. Datasheet Automation Pro can regenerate datasheets automatically on a schedule, for example nightly, and can update multiple changed products in one workflow."\n          }\n        },\n        {\n          "@type": "Question",\n          "name": "Is Datasheet Automation cloud-based?",\n          "acceptedAnswer": {\n            "@type": "Answer",\n            "text": "Yes. Datasheet Automation is hosted in the InBetween Private Cloud for a cloud-based PDF generation workflow."\n          }\n        },\n        {\n          "@type": "Question",\n          "name": "Can the datasheet templates be customized?",\n          "acceptedAnswer": {\n            "@type": "Answer",\n            "text": "Yes. Both editions include four predefined layout options. During setup, customers choose one template, which is then structured around the product data and information blocks they want to show and customized with corporate design elements such as logo and brand colors."\n          }\n        },\n        {\n          "@type": "Question",\n          "name": "Can the templates be customized beyond logo and brand colors?",\n          "acceptedAnswer": {\n            "@type": "Answer",\n            "text": "No. Further individual template customization beyond logo and brand color adjustments is not included in Datasheet Automation. However, the selected layout is built dynamically based on the user\'s product data and adapts to the available product information. Further individual template customization is possible with an InBetween edition. Please contact our Sales team to learn more."\n          }\n        },\n        {\n          "@type": "Question",\n          "name": "Can the solution support multilingual or market-specific datasheets?",\n          "acceptedAnswer": {\n            "@type": "Answer",\n            "text": "Yes. Datasheet Automation can generate multilingual and market-specific datasheets based on the selected Akeneo product data and the chosen template. Market-specific datasheets for different brands are not included in Datasheet Automation; this is possible with an InBetween edition. Please contact our Sales team if this is required."\n          }\n        }\n      ]\n    }\n  ]\n}';
+---
+<BaseLayout
+  title="Datasheet Automation App"
+  description="InBetween Datasheet Automation is a cloud-based solution for fully automated creation of product datasheets in PDF format - directly from your Akeneo PIM."
+  lang="en"
+>
+<div class="datasheet-landing">
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-eyebrow">Publication Management</div>
+        <h1>Automated datasheets<br><span class="highlight">directly from</span><br>Akeneo PIM</h1>
+        <p class="hero-lead">InBetween Datasheet Automation is a cloud-based solution for fully automated creation of product datasheets in PDF format — directly from your PIM. It enables companies to generate accurate, brand-compliant datasheets instantly, using live product data and predefined templates — without manual design or layout effort.</p>
+        <div class="hero-actions">
+          <a href="https://calendly.com/inbetween-sales/30min" class="btn-primary">Schedule a call</a>
+          <a href="#editions" class="btn-secondary">Compare editions</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong>2</strong><span>Editions available</span></div>
+          <div class="hero-stat"><strong>4</strong><span>Templates to choose from</span></div>
+          <div class="hero-stat"><strong>100%</strong><span>Cloud-hosted</span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="Example datasheet template previews">
+        <img class="hero-template-composite" src="/images/datasheet/ds-0340cb46.png" alt="Three example datasheet templates: laptop, tire and lubrication pump">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOLUTION OVERVIEW -->
+<section id="what-is-it" class="quick-facts-section">
+  <div class="container">
+    <h2 class="section-title quick-facts-title">Solution Overview</h2>
+    <div class="quick-facts-rule"></div>
+
+    <div class="quick-facts-grid">
+      <div class="quick-facts-copy">
+        <div class="quick-fact-block">
+          <h3>Who is it for?</h3>
+          <p><strong>Manufacturers, distributors, wholesalers, and retailers</strong> managing high-volume or <strong>frequently changing product data</strong>, looking to eliminate manual work across marketing, product management, sales, and external teams.</p>
+        </div>
+
+        <div class="quick-fact-block">
+          <h3>Purpose:</h3>
+          <p>Automated generation of PDF datasheets and product sheets using live <strong>Akeneo PIM product data</strong> — triggered <strong>on demand</strong> or <strong>scheduled for continuous updates</strong>.</p>
+        </div>
+      </div>
+
+      <div class="quick-facts-list" aria-label="Key capabilities of InBetween Datasheet Automation">
+        <ul>
+          <li>Fully automated PDF datasheet and product sheet generation from Akeneo PIM data</li>
+          <li>On-demand creation or scheduled automation, for example nightly updates</li>
+          <li>Dynamic content selection for personalized and use-case-specific datasheets</li>
+          <li>Predefined, brand-compliant layout templates structured around your selected product data</li>
+          <li>Real-time data synchronization before each generation</li>
+          <li>Seamless integration with existing PIM and distribution channels</li>
+          <li>Automatic storage and reuse of generated datasheets as linked Akeneo assets</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDITIONS -->
+<section id="editions">
+  <div class="container">
+    <div class="section-tag">Choose your edition</div>
+    <h2 class="section-title">Two editions,<br>one proven workflow</h2>
+    <p class="section-lead">As a cost-efficient entry into automated product publishing, it replaces static, one-size-fits-all PDFs with a dynamic, customer-centric experience — delivering tailored, on-demand documents that are always up to date, aligned with specific information needs, and created without complexity.</p>
+    <p class="section-lead" style="margin-top:-1rem;">Both editions include a selection of 4 brand-customizable templates and Akeneo integration. During setup, you choose the one template that best fits your datasheet structure. The difference between the editions is <strong style="font-weight:900">how</strong> and <strong style="font-weight:900">when</strong> generation is triggered.</p>
+
+    <div class="edition-grid">
+
+      <!-- Standard -->
+      <div class="edition-card">
+        <div class="edition-header">
+          <span class="edition-badge badge-gray">Entry</span>
+          <div class="edition-name">Datasheet Automation</div>
+          <div class="edition-desc">On-demand PDF generation triggered manually from within Akeneo. The ideal starting point for automating your datasheet workflow.</div>
+        </div>
+        <div class="edition-price-block">
+          <div class="edition-price">€8,900</div>
+          <div class="edition-price-note">per year</div>
+        </div>
+        <div class="edition-features">
+          <ul>
+            <li><span class="chk">✓</span> PDF button in the product header view</li>
+            <li><span class="chk">✓</span> On-demand single-product generation</li>
+            <li><span class="chk">✓</span> Live data sync from Akeneo before each run</li>
+            <li><span class="chk">✓</span> Choose 1 of 4 predefined layouts</li>
+            <li><span class="chk">✓</span> Customization with your logo and brand colors</li>
+            <li><span class="chk">✓</span> Datasheets auto-saved as linked Akeneo assets</li>
+            <li class="dim"><span class="xmk">–</span> Scheduled bulk automation</li>
+            <li class="dim"><span class="xmk">–</span> PDF button in product grid view</li>
+            <li class="dim"><span class="xmk">–</span> Multi-product delta updates</li>
+          </ul>
+        </div>
+        <div class="edition-cta">
+          <a href="https://calendly.com/inbetween-sales/30min" class="cta-outline">Talk to sales</a>
+        </div>
+      </div>
+
+      <!-- Pro -->
+      <div class="edition-card featured">
+        <div class="edition-header">
+          <span class="edition-badge badge-red">Professional</span>
+          <span class="popular-ribbon">Most popular</span>
+          <div class="edition-name">Datasheet Automation Pro</div>
+          <div class="edition-desc">Everything in Datasheet Automation, plus fully scheduled bulk automation and grid-view triggering for high-volume workflows.</div>
+        </div>
+        <div class="edition-price-block">
+          <div class="edition-price">€12,900</div>
+          <div class="edition-price-note">per year</div>
+        </div>
+        <div class="edition-features">
+          <ul>
+            <li><span class="chk">✓</span> Everything in Datasheet Automation</li>
+            <li><span class="chk">✓</span> <strong>Scheduled bulk automation</strong> — e.g. nightly regeneration for the entire catalog <span class="pro-tag">Pro only</span></li>
+            <li><span class="chk">✓</span> <strong>PDF button in product grid view</strong> — trigger delta updates for multiple products at once <span class="pro-tag">Pro only</span></li>
+            <li><span class="chk">✓</span> <strong>Multi-product delta updates</strong> in a single action <span class="pro-tag">Pro only</span></li>
+            <li><span class="chk">✓</span> Choose 1 of 4 predefined layouts</li>
+            <li><span class="chk">✓</span> Customization with your logo and brand colors</li>
+            
+          </ul>
+        </div>
+        <div class="edition-cta">
+          <a href="https://calendly.com/inbetween-sales/30min" class="cta-filled">Talk to sales</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="section-sand">
+  <div class="container">
+    <div class="section-tag">Feature comparison</div>
+    <h2 class="section-title">What's included</h2>
+    <p class="section-lead">A full side-by-side breakdown so your team can make the right choice from day one.</p>
+    <div class="compare-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40%">Feature</th>
+            <th style="width:30%">Datasheet Automation</th>
+            <th class="col-pro" style="width:30%">Datasheet Automation Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>PDF button — product header view</td><td><span class="tick">✓</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>On-demand single-product generation</td><td><span class="tick">✓</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>Live data sync from Akeneo</td><td><span class="tick">✓</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>Choice of 1 out of choice of 1 out of 4 predefined, brand-customizable layouts</td><td><span class="tick">✓</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>CI customization (logo, colors, fonts)</td><td><span class="tick">✓</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>Datasheets saved as linked Akeneo assets</td><td><span class="tick">✓</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>Scheduled bulk automation (e.g. nightly)</td><td><span class="dash">–</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>PDF button — product grid view</td><td><span class="dash">–</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>Multi-product delta updates in one click</td><td><span class="dash">–</span></td><td class="col-pro"><span class="tick">✓</span></td></tr>
+          <tr><td>Annual price</td><td>€8,900</td><td class="col-pro">€12,900</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="3">* Annual contract. Contact sales for a binding quote.</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <div class="section-tag">How it works</div>
+    <h2 class="section-title">From Akeneo data<br>to finished PDF in seconds</h2>
+    <p class="section-lead">The Datasheet Automation integrates directly into your Akeneo PIM — no separate login, no manual data export required.</p>
+    <div class="steps" style="border: 1px solid var(--ib-sand-60); border-radius: var(--radius-lg); overflow:hidden; margin-bottom:20px;">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Trigger generation</div>
+        <div class="step-desc">Click the "Generate PDF" button in the Akeneo product header — or let the Pro scheduler handle it automatically at a set time.</div>
+        <span class="step-tag both">Both editions</span>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Live data is fetched</div>
+        <div class="step-desc">Product data is automatically refreshed from Akeneo immediately before generation — every datasheet reflects the latest selected data fields and information blocks.</div>
+        <span class="step-tag both">Both editions</span>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">PDF saved and linked</div>
+        <div class="step-desc">The finished datasheet is instantly uploaded back to Akeneo as a linked product asset — ready to share, download, or distribute.</div>
+        <span class="step-tag both">Both editions</span>
+      </div>
+    </div>
+    <div class="pro-callout">
+      <strong>Datasheet Automation Pro additionally offers:</strong>
+      <p>A pre-scheduled automation (e.g. every night) that regenerates all changed products automatically — plus a PDF button directly in the product grid view so you can trigger updates for multiple products simultaneously, without opening each product individually.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 LAYOUTS -->
+<section class="section-sand">
+  <div class="container">
+    <div class="section-tag">Included in both editions</div>
+    <h2 class="section-title">Choose 1 of 4 predefined layouts,<br>fully brand-customizable</h2>
+    <p class="section-lead">Datasheet Automation includes four predefined layout options. During setup, you select one layout as the basis for your automated datasheets. The selected template is then structured around the product data, information blocks, and fields you want to show, customized with your logo and brand colors, and used for consistent PDF generation. Click any layout to view a full example.</p>
+
+    <div class="layouts-grid-new">
+
+      <div class="layout-card-new" onclick="openModal(0)">
+        <div class="layout-preview-new">
+          <img src="/images/datasheet/ds-b1f56e9d.jpg" alt="Layout 1 – Vertical" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+        </div>
+        <div class="layout-meta">
+          <div class="layout-name">Layout 1 — Vertical</div>
+          <div class="layout-hint">Image + benefits + specs table</div>
+        </div>
+      </div>
+
+      <div class="layout-card-new" onclick="openModal(1)">
+        <div class="layout-preview-new">
+          <img src="/images/datasheet/ds-4b90c983.jpg" alt="Layout 2 – Horizontal" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+        </div>
+        <div class="layout-meta">
+          <div class="layout-name">Layout 2 — Horizontal</div>
+          <div class="layout-hint">3-column spec sheet, landscape</div>
+        </div>
+      </div>
+
+      <div class="layout-card-new" onclick="openModal(2)">
+        <div class="layout-preview-new">
+          <img src="/images/datasheet/ds-59e02aba.jpg" alt="Layout 3 – Image-focused" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+        </div>
+        <div class="layout-meta">
+          <div class="layout-name">Layout 3 — Image-focused</div>
+          <div class="layout-hint">Large image + rating bars + specs</div>
+        </div>
+      </div>
+
+      <div class="layout-card-new" onclick="openModal(3)">
+        <div class="layout-preview-new">
+          <img src="/images/datasheet/ds-293035b7.jpg" alt="Layout 4 – Table-oriented" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+        </div>
+        <div class="layout-meta">
+          <div class="layout-name">Layout 4 — Table-oriented</div>
+          <div class="layout-hint">Product image + multi-row data table</div>
+        </div>
+      </div>
+
+    </div><!-- end layouts-grid-new -->
+  </div>
+</section>
+
+<!-- LIGHTBOX MODAL -->
+<div id="layout-modal" onclick="if(event.target===this)closeModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;padding:1rem;">
+  <div style="background:#fff;border-radius:8px;width:min(920px,96vw);max-height:92vh;overflow:hidden;display:flex;flex-direction:column;">
+
+    <!-- Modal Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid #e6dcc8;flex-shrink:0;">
+      <div>
+        <div id="modal-tag" style="font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:#d31145;margin-bottom:4px;"></div>
+        <div id="modal-title" style="font-size:16px;font-weight:900;text-transform:uppercase;color:#313131;letter-spacing:-0.2px;"></div>
+        <div id="modal-hint" style="font-size:12px;font-weight:300;color:#6b6b6b;margin-top:2px;"></div>
+      </div>
+      <button onclick="closeModal()" style="background:none;border:none;cursor:pointer;font-size:26px;color:#6b6b6b;line-height:1;padding:4px 10px;flex-shrink:0;">&times;</button>
+    </div>
+
+    <!-- Modal Body: image left, info right -->
+    <div style="display:grid;grid-template-columns:1fr 380px;overflow:hidden;flex:1;min-height:0;">
+
+      <!-- Full layout image -->
+      <div style="overflow-y:auto;background:#f0e6dc;display:flex;align-items:flex-start;justify-content:center;padding:1.5rem;">
+        <img id="modal-img" src="" alt="" style="width:100%;max-width:540px;border-radius:4px;box-shadow:0 4px 24px rgba(0,0,0,0.15);display:block;">
+      </div>
+
+      <!-- Info panel -->
+      <div style="overflow-y:auto;border-left:1px solid #e6dcc8;padding:1.5rem;display:flex;flex-direction:column;gap:1.25rem;">
+        <div id="modal-info-left"></div>
+        <div id="modal-info-right"></div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div style="padding:1rem 1.5rem;border-top:1px solid #e6dcc8;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:#fff;">
+      <div style="display:flex;gap:8px;">
+        <button onclick="prevModal()" style="font-size:13px;font-weight:700;padding:9px 16px;border:1px solid #e6dcc8;border-radius:4px;cursor:pointer;background:#fff;color:#313131;">← Previous</button>
+        <button onclick="nextModal()" style="font-size:13px;font-weight:700;padding:9px 16px;border:1px solid #e6dcc8;border-radius:4px;cursor:pointer;background:#fff;color:#313131;">Next →</button>
+      </div>
+      <div id="modal-counter" style="font-size:12px;color:#6b6b6b;"></div>
+      <a href="https://calendly.com/inbetween-sales/30min" style="font-size:13px;font-weight:700;padding:9px 20px;background:#d31145;color:#fff;border-radius:4px;text-decoration:none;">Request demo</a>
+    </div>
+  </div>
+</div>
+
+<!-- TECHNICAL WORKFLOW -->
+<section id="technical-workflow">
+  <div class="container">
+    <div class="section-tag">Technical workflow</div>
+    <h2 class="section-title">How the PIM-to-PDF<br>automation works</h2>
+    <p class="section-lead">Datasheet Automation connects Akeneo PIM with InBetween's cloud-based publishing engine. The workflow is designed to keep product PDFs accurate, consistent, and easy to regenerate.</p>
+    <div class="content-grid">
+      <div class="content-card"><h3>1. Product data is retrieved</h3><p>The solution fetches current product information, images, attributes, and product content from Akeneo before PDF generation starts.</p></div>
+      <div class="content-card"><h3>2. Templates are applied</h3><p>The selected predefined layout structures product information into brand-compliant datasheets using customer-specific logo and colors.</p></div>
+      <div class="content-card"><h3>3. PDFs are rendered in the cloud</h3><p>The datasheet is generated as a PDF through a hosted InBetween publishing workflow without local software installation.</p></div>
+      <div class="content-card"><h3>4. Assets are stored back</h3><p>The finished PDF is saved back into Akeneo as a linked product asset so teams can access, share, download, or distribute it directly from the PIM.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="use-cases" class="section-sand">
+  <div class="container">
+    <div class="section-tag">Use cases and intent matching</div>
+    <h2 class="section-title">Typical use cases<br>for automated datasheets</h2>
+    <p class="section-lead">Datasheet Automation supports teams that need reliable product documentation based on structured PIM data instead of manual desktop publishing.</p>
+    <div class="content-grid">
+      <div class="content-card"><h3>Technical datasheets</h3><p>Create technical data sheets with product attributes, specifications, images, benefits, and structured product information from Akeneo.</p></div>
+      <div class="content-card"><h3>B2B sales documents</h3><p>Generate product sheets and product PDFs for sales teams, partners, distributors, and customer-specific product communication.</p></div>
+      <div class="content-card"><h3>Large catalog maintenance</h3><p>Keep PDF documents aligned with frequently changing product data, variants, assortment updates, and market-specific information.</p></div>
+      <div class="content-card"><h3>Brand-compliant publishing</h3><p>Ensure all datasheets follow the same corporate design, layout logic, typography, and visual structure across products and teams.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section>
+  <div class="container">
+    <div class="section-tag">Why Datasheet Automation</div>
+    <h2 class="section-title">Replace static PDFs<br>with a dynamic workflow</h2>
+    <p class="section-lead">From faster time-to-market to reduced manual effort — here's what teams gain when they move to automated datasheet generation.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-num">01</div>
+        <div class="benefit-title">Faster time-to-market</div>
+        <div class="benefit-desc">Generate brand-compliant datasheets in seconds instead of days. New products go live with documentation from day one.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">02</div>
+        <div class="benefit-title">Always accurate, always on-brand</div>
+        <div class="benefit-desc">Live data sync ensures every datasheet reflects the latest product information — no more outdated PDFs in circulation.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">03</div>
+        <div class="benefit-title">Scalable for large catalogs</div>
+        <div class="benefit-desc">Handle thousands of products across multiple languages without adding headcount or manual workflows.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">04</div>
+        <div class="benefit-title">Native Akeneo integration</div>
+        <div class="benefit-desc">No separate tool, no data export. Datasheets are triggered and stored directly within your existing Akeneo PIM environment.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">05</div>
+        <div class="benefit-title">Reduced cost and manual effort</div>
+        <div class="benefit-desc">Eliminate repetitive layout work and the maintenance of large libraries of pre-produced, soon-outdated PDF files.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">06</div>
+        <div class="benefit-title">Out of the box — no setup friction</div>
+        <div class="benefit-desc">Both editions are designed to run immediately after onboarding. No complex configuration, no custom development needed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ FOR AI SEARCH AND LONG-TAIL QUERIES -->
+<section id="faq" class="section-sand">
+  <div class="container">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">Questions about<br>Datasheet Automation</h2>
+    <p class="section-lead">Answers to common questions about automated product datasheet generation, Akeneo integration, templates, cloud hosting, and the difference between Datasheet Automation and Datasheet Automation Pro.</p>
+    <div class="faq-list">
+      <div class="faq-item"><h3>What is Datasheet Automation?</h3><p>Datasheet Automation is cloud-based software by InBetween that generates product datasheets as PDF files directly from Akeneo PIM using live product data and predefined templates.</p></div>
+      <div class="faq-item"><h3>How does Datasheet Automation work with Akeneo PIM?</h3><p>The solution integrates into Akeneo, retrieves current product information before generation, creates a PDF datasheet, and saves the finished file back into Akeneo as a linked product asset.</p></div>
+      <div class="faq-item"><h3>What is the difference between Datasheet Automation and Datasheet Automation Pro?</h3><p>Datasheet Automation supports on-demand single-product PDF generation from the Akeneo product header. Datasheet Automation Pro additionally supports scheduled bulk automation, product grid triggering, and multi-product delta updates.</p></div>
+      <div class="faq-item"><h3>Can datasheets be generated automatically?</h3><p>Yes. Datasheet Automation Pro can regenerate datasheets automatically on a schedule, for example nightly, and can update multiple changed products in one workflow.</p></div>
+      <div class="faq-item"><h3>What file format does the solution generate?</h3><p>The solution generates product datasheets in PDF format. These PDFs can be used for sales, product documentation, partner portals, customer communication, or distribution workflows.</p></div>
+      <div class="faq-item"><h3>Can the datasheet templates be customized?</h3><p>Yes. Both editions include four predefined layout options. During setup, customers choose one template, which is then structured around the product data and information blocks they want to show and customized with corporate design elements such as logo and brand colors.</p></div>
+      <div class="faq-item"><h3>Can the templates be customized beyond logo and brand colors?</h3><p>No. Further individual template customization beyond logo and brand color adjustments is not included in Datasheet Automation. However, the selected layout is built dynamically based on the user's product data and adapts to the available product information. Further individual template customization is possible with an InBetween edition. Please contact our Sales team to learn more.</p></div>
+      <div class="faq-item"><h3>Is coding required to generate product datasheets?</h3><p>No. The workflow is designed as an out-of-the-box user experience inside Akeneo, so users can generate datasheets without coding, manual exports, or local layout software.</p></div>
+      <div class="faq-item"><h3>Is Datasheet Automation cloud-based?</h3><p>Yes. Datasheet Automation is hosted in the InBetween Private Cloud for a cloud-based PDF generation workflow.</p></div>
+      <div class="faq-item"><h3>Can the solution support multilingual or market-specific datasheets?</h3><p>Yes. Datasheet Automation can generate multilingual and market-specific datasheets based on the selected Akeneo product data and the chosen template. Market-specific datasheets for different brands are not included in Datasheet Automation; this is possible with an InBetween edition. Please contact our Sales team if this is required.</p></div>
+      <div class="faq-item"><h3>Who should use Datasheet Automation?</h3><p>The solution is suitable for manufacturers, distributors, wholesalers, retailers, e-commerce teams, product marketing teams, and documentation teams that need reliable product PDFs from Akeneo PIM.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-banner">
+      <div class="cta-banner-text">
+        <h2>Ready to automate<br>your <span>datasheets?</span></h2>
+        <p>Most teams start with Datasheet Automation and upgrade to Pro once scheduled automation becomes a priority. Talk to us — we'll find the right fit together.</p>
+      </div>
+      <div class="cta-banner-actions">
+        <a href="https://calendly.com/inbetween-sales/30min" class="btn-white">Schedule a call</a>
+        <a href="#editions" class="btn-red-outline">Compare editions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</div>
+
+<!-- Optional: structured data. If WordPress strips this script, add it via Rank Math/SEO plugin or WPCode. -->
+  <script type="application/ld+json" is:inline set:html={jsonLd}></script>
+</BaseLayout>
+
+<style is:global>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+.datasheet-landing {
+    /* IB CI Colours */
+    --ib-red:        #d31145;
+    --ib-red-dark:   #a80d38;
+    --ib-dark-gray:  #313131;
+    --ib-mid-gray:   #6b6b6b;
+    --ib-light-gray: #d0d0d0;
+    --ib-sand-30:    #f0e6dc;
+    --ib-sand-60:    #e6dcc8;
+    --ib-sand-100:   #aa9687;
+    --ib-white:      #ffffff;
+
+    /* Typography */
+    --font: 'Roboto', sans-serif;
+
+    /* Spacing */
+    --radius: 4px;
+    --radius-lg: 6px;
+  }
+.datasheet-landing *, .datasheet-landing *::before, .datasheet-landing *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.datasheet-landing {
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--ib-dark-gray);
+    background: var(--ib-white);
+    line-height: 1.6;
+  }
+.datasheet-landing /* ── LAYOUT ── */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+.datasheet-landing /* ── HERO ── */
+  .hero {
+    padding: 80px 0 72px;
+    background: linear-gradient(160deg, var(--ib-sand-30) 0%, #faf7f5 70%, var(--ib-white) 100%);
+    border-bottom: 1px solid var(--ib-sand-60);
+  }
+.datasheet-landing .hero-eyebrow {
+    display: inline-block;
+    font-size: 11px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ib-red); margin-bottom: 1.25rem;
+  }
+.datasheet-landing .hero h1 {
+    font-weight: 900;
+    font-size: clamp(36px, 5.5vw, 58px);
+    line-height: 1.05;
+    color: var(--ib-dark-gray);
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    max-width: 700px;
+    margin-bottom: 1.25rem;
+  }
+.datasheet-landing .hero h1 .highlight {
+    background: var(--ib-red);
+    color: var(--ib-white);
+    padding: 0 6px;
+    display: inline;
+  }
+.datasheet-landing .hero-lead {
+    font-size: 18px; font-weight: 300;
+    color: var(--ib-mid-gray);
+    max-width: 580px; line-height: 1.65; margin-bottom: 2rem;
+  }
+.datasheet-landing .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 3rem; }
+.datasheet-landing .btn-primary {
+    display: inline-block; font-size: 14px; font-weight: 700;
+    padding: 14px 30px; background: var(--ib-red); color: var(--ib-white);
+    border-radius: var(--radius); text-decoration: none; transition: background .15s;
+  }
+.datasheet-landing .btn-primary:hover { background: var(--ib-red-dark); }
+.datasheet-landing .btn-secondary {
+    display: inline-block; font-size: 14px; font-weight: 700;
+    padding: 14px 30px; border: 1px solid var(--ib-sand-100); color: var(--ib-dark-gray);
+    border-radius: var(--radius); text-decoration: none; transition: border-color .15s, background .15s;
+  }
+.datasheet-landing .btn-secondary:hover { border-color: var(--ib-red); color: var(--ib-red); background: #fff5f7; }
+.datasheet-landing .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+    gap: 3rem;
+    align-items: center;
+  }
+.datasheet-landing .hero-copy { position: relative; z-index: 2; }
+.datasheet-landing .hero-visual {
+    position: relative;
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.datasheet-landing .hero-template-composite {
+    width: min(700px, 100%);
+    height: auto;
+    display: block;
+    object-fit: contain;
+    image-rendering: auto;
+  }
+.datasheet-landing .hero-stats { display: flex; gap: 3rem; flex-wrap: wrap; }
+.datasheet-landing .hero-stat strong { display: block; font-size: 26px; font-weight: 900; color: var(--ib-red); line-height: 1; }
+.datasheet-landing .hero-stat span { font-size: 12px; font-weight: 300; color: var(--ib-mid-gray); letter-spacing: 0.03em; }
+.datasheet-landing /* ── SECTIONS ── */
+  section { padding: 72px 0; }
+.datasheet-landing section + section { border-top: 1px solid var(--ib-sand-60); }
+.datasheet-landing .section-sand { background: var(--ib-sand-30); }
+.datasheet-landing .section-tag {
+    font-size: 11px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ib-red); margin-bottom: 10px;
+  }
+.datasheet-landing .section-title {
+    font-size: clamp(26px, 3.5vw, 38px); font-weight: 900; text-transform: uppercase;
+    color: var(--ib-dark-gray); letter-spacing: -0.3px; line-height: 1.1;
+    margin-bottom: 12px;
+  }
+.datasheet-landing .section-lead { font-size: 16px; font-weight: 300; color: var(--ib-mid-gray); max-width: 580px; line-height: 1.65; margin-bottom: 2.5rem; }
+.datasheet-landing /* ── EDITION CARDS ── */
+  .edition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.datasheet-landing .edition-card {
+    border: 1px solid var(--ib-sand-60);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--ib-white);
+  }
+.datasheet-landing .edition-card.featured { border: 2px solid var(--ib-red); }
+.datasheet-landing .edition-header {
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 1px solid var(--ib-sand-60);
+  }
+.datasheet-landing .edition-badge {
+    display: inline-block; font-size: 10px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 2px; margin-bottom: 12px;
+  }
+.datasheet-landing .badge-gray { background: var(--ib-sand-60); color: var(--ib-dark-gray); }
+.datasheet-landing .badge-red { background: var(--ib-red); color: var(--ib-white); }
+.datasheet-landing .popular-ribbon {
+    float: right; margin-top: -2px;
+    font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em;
+    background: var(--ib-red); color: var(--ib-white);
+    padding: 3px 10px; border-radius: 2px;
+  }
+.datasheet-landing .edition-name { font-size: 20px; font-weight: 900; text-transform: uppercase; color: var(--ib-dark-gray); margin-bottom: 8px; letter-spacing: -0.2px; }
+.datasheet-landing .edition-desc { font-size: 14px; font-weight: 300; color: var(--ib-mid-gray); line-height: 1.55; }
+.datasheet-landing .edition-price-block { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--ib-sand-60); background: var(--ib-sand-30); }
+.datasheet-landing .edition-price { font-size: 34px; font-weight: 900; color: var(--ib-dark-gray); letter-spacing: -1px; }
+.datasheet-landing .edition-price-note { font-size: 12px; font-weight: 300; color: var(--ib-mid-gray); margin-top: 2px; }
+.datasheet-landing .edition-features { padding: 1.25rem 1.5rem; }
+.datasheet-landing .edition-features ul { list-style: none; }
+.datasheet-landing .edition-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; font-weight: 300; color: var(--ib-dark-gray);
+    padding: 7px 0; border-bottom: 1px solid var(--ib-sand-30);
+    line-height: 1.45;
+  }
+.datasheet-landing .edition-features li:last-child { border-bottom: none; }
+.datasheet-landing .edition-features li strong { font-weight: 900; }
+.datasheet-landing .chk { color: var(--ib-red); font-size: 14px; flex-shrink: 0; margin-top: 2px; font-weight: 900; }
+.datasheet-landing .xmk { color: var(--ib-light-gray); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+.datasheet-landing .dim { color: var(--ib-light-gray) !important; }
+.datasheet-landing .pro-tag {
+    display: inline-block; font-size: 9px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
+    background: #fde8ee; color: var(--ib-red);
+    padding: 2px 6px; border-radius: 2px; margin-left: 5px; vertical-align: middle;
+  }
+.datasheet-landing .edition-cta { padding: 0 1.5rem 1.5rem; }
+.datasheet-landing .edition-cta a {
+    display: block; text-align: center;
+    font-size: 14px; font-weight: 700;
+    padding: 12px; border-radius: var(--radius); text-decoration: none; transition: all .15s;
+  }
+.datasheet-landing .cta-outline { border: 1px solid var(--ib-sand-100); color: var(--ib-dark-gray); }
+.datasheet-landing .cta-outline:hover { border-color: var(--ib-red); color: var(--ib-red); }
+.datasheet-landing .cta-filled { background: var(--ib-red); color: var(--ib-white); }
+.datasheet-landing .cta-filled:hover { background: var(--ib-red-dark); }
+.datasheet-landing /* ── COMPARISON TABLE ── */
+  .compare-table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--ib-sand-60); }
+.datasheet-landing table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.datasheet-landing thead th {
+    padding: 14px 20px; text-align: left;
+    background: var(--ib-dark-gray);
+    font-weight: 900; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ib-white);
+  }
+.datasheet-landing thead th:first-child { color: var(--ib-sand-60); }
+.datasheet-landing thead th.col-pro { background: var(--ib-red); }
+.datasheet-landing tbody tr:nth-child(even) td { background: var(--ib-sand-30); }
+.datasheet-landing tbody tr:nth-child(even) td.col-pro { background: #fde8ee; }
+.datasheet-landing td { padding: 12px 20px; border-top: 1px solid var(--ib-sand-60); vertical-align: middle; font-weight: 300; }
+.datasheet-landing td:first-child { color: var(--ib-mid-gray); font-size: 13px; }
+.datasheet-landing td.col-pro { background: #fff5f7; font-weight: 900; }
+.datasheet-landing .tick { color: var(--ib-red); font-weight: 900; font-size: 15px; }
+.datasheet-landing .dash { color: var(--ib-light-gray); font-size: 18px; }
+.datasheet-landing tfoot td { font-size: 11px; font-weight: 300; color: var(--ib-mid-gray); padding: 10px 20px; background: var(--ib-sand-30); }
+.datasheet-landing /* ── HOW IT WORKS ── */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.datasheet-landing .step {
+    padding: 2rem;
+    border-right: 1px solid var(--ib-sand-60);
+  }
+.datasheet-landing .step:last-child { border-right: none; }
+.datasheet-landing .step-num {
+    font-size: 48px; font-weight: 900; color: var(--ib-sand-60);
+    line-height: 1; margin-bottom: 1rem;
+  }
+.datasheet-landing .step-title { font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ib-dark-gray); margin-bottom: 8px; }
+.datasheet-landing .step-desc { font-size: 13px; font-weight: 300; color: var(--ib-mid-gray); line-height: 1.6; }
+.datasheet-landing .step-tag {
+    display: inline-block; margin-top: 12px;
+    font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 3px 8px; border-radius: 2px;
+  }
+.datasheet-landing .step-tag.both { background: var(--ib-sand-60); color: var(--ib-dark-gray); }
+.datasheet-landing .step-tag.pro { background: var(--ib-red); color: var(--ib-white); }
+.datasheet-landing .pro-callout {
+    margin-top: 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--ib-red);
+    background: #fff5f7;
+  }
+.datasheet-landing .pro-callout strong { font-weight: 900; font-size: 13px; color: var(--ib-dark-gray); text-transform: uppercase; letter-spacing: 0.04em; }
+.datasheet-landing .pro-callout p { font-size: 13px; font-weight: 300; color: var(--ib-mid-gray); margin-top: 5px; line-height: 1.6; }
+.datasheet-landing /* ── LAYOUTS ── */
+  .layouts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.datasheet-landing .layout-card {
+    border: 1px solid var(--ib-sand-60);
+    border-radius: var(--radius);
+    overflow: hidden; aspect-ratio: 3/4;
+    background: var(--ib-white); cursor: pointer;
+    transition: border-color .15s;
+  }
+.datasheet-landing .layout-card:hover { border-color: var(--ib-red); }
+.datasheet-landing .layout-preview { height: 80%; background: var(--ib-sand-30); display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+.datasheet-landing .lp-img { background: var(--ib-sand-60); border-radius: 2px; }
+.datasheet-landing .lp-line { background: var(--ib-sand-60); border-radius: 1px; height: 4px; }
+.datasheet-landing .lp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.datasheet-landing .lp-cell { background: var(--ib-sand-60); height: 10px; border-radius: 1px; }
+.datasheet-landing .layout-label { height: 20%; display: flex; align-items: center; padding: 0 12px; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ib-dark-gray); border-top: 1px solid var(--ib-sand-60); }
+.datasheet-landing /* ── BENEFITS ── */
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--ib-sand-60); border: 1px solid var(--ib-sand-60); border-radius: var(--radius-lg); overflow: hidden; }
+.datasheet-landing .benefit-card { padding: 1.5rem; background: var(--ib-white); }
+.datasheet-landing .benefit-num { font-size: 36px; font-weight: 900; color: var(--ib-sand-60); line-height: 1; margin-bottom: 10px; }
+.datasheet-landing .benefit-title { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ib-dark-gray); margin-bottom: 8px; }
+.datasheet-landing .benefit-desc { font-size: 13px; font-weight: 300; color: var(--ib-mid-gray); line-height: 1.6; }
+.datasheet-landing /* ── PRODUCT LADDER ── */
+  .ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.datasheet-landing .ladder-card {
+    border: 1px solid var(--ib-sand-60);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    background: var(--ib-white);
+    border-top: 4px solid var(--ib-sand-100);
+  }
+.datasheet-landing .ladder-card.tier-2 { border-top-color: var(--ib-dark-gray); }
+.datasheet-landing .ladder-card.tier-3 { border-top-color: var(--ib-red); }
+.datasheet-landing .ladder-tier { font-size: 10px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ib-mid-gray); margin-bottom: 8px; }
+.datasheet-landing .ladder-name { font-size: 16px; font-weight: 900; text-transform: uppercase; color: var(--ib-dark-gray); margin-bottom: 8px; letter-spacing: -0.1px; }
+.datasheet-landing .ladder-desc { font-size: 13px; font-weight: 300; color: var(--ib-mid-gray); line-height: 1.55; margin-bottom: 1rem; }
+.datasheet-landing .ladder-price { font-size: 14px; font-weight: 900; color: var(--ib-dark-gray); }
+.datasheet-landing .ladder-note { font-size: 12px; font-weight: 300; color: var(--ib-mid-gray); margin-top: 1rem; line-height: 1.55; }
+.datasheet-landing /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--ib-dark-gray);
+    border-radius: var(--radius-lg);
+    padding: 3.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  }
+.datasheet-landing .cta-banner-text h2 {
+    font-size: clamp(22px, 3vw, 32px); font-weight: 900; text-transform: uppercase;
+    color: var(--ib-white); letter-spacing: -0.3px; line-height: 1.1; margin-bottom: 10px;
+  }
+.datasheet-landing .cta-banner-text h2 span { color: var(--ib-red); }
+.datasheet-landing .cta-banner-text p { font-size: 15px; font-weight: 300; color: var(--ib-sand-60); max-width: 420px; line-height: 1.6; }
+.datasheet-landing .cta-banner-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+.datasheet-landing .btn-white {
+    display: inline-block; font-size: 14px; font-weight: 700;
+    padding: 14px 28px; background: var(--ib-white); color: var(--ib-dark-gray);
+    border-radius: var(--radius); text-decoration: none; transition: opacity .15s;
+  }
+.datasheet-landing .btn-white:hover { opacity: .88; }
+.datasheet-landing .btn-red-outline {
+    display: inline-block; font-size: 14px; font-weight: 700;
+    padding: 14px 28px; border: 1px solid var(--ib-red); color: var(--ib-red);
+    border-radius: var(--radius); text-decoration: none; transition: background .15s, color .15s;
+  }
+.datasheet-landing .btn-red-outline:hover { background: var(--ib-red); color: var(--ib-white); }
+.datasheet-landing /* ── NEUE LAYOUT KARTEN ── */
+  .layouts-grid-new { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.datasheet-landing .layout-card-new {
+    border: 1px solid var(--ib-sand-60);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--ib-white);
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+  }
+.datasheet-landing .layout-card-new:hover {
+    border-color: var(--ib-red);
+    box-shadow: 0 4px 16px rgba(211,17,69,0.1);
+  }
+.datasheet-landing .layout-preview-new {
+    aspect-ratio: 3/4;
+    background: var(--ib-sand-30);
+    overflow: hidden;
+    display: flex; align-items: stretch;
+  }
+.datasheet-landing .layout-preview-new svg { display: block; }
+.datasheet-landing .layout-meta {
+    padding: 10px 12px;
+    border-top: 1px solid var(--ib-sand-60);
+    background: var(--ib-white);
+  }
+.datasheet-landing .layout-name { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ib-dark-gray); }
+.datasheet-landing .layout-hint { font-size: 11px; font-weight: 300; color: var(--ib-mid-gray); margin-top: 2px; }
+.datasheet-landing /* ── AI / GEO CONTENT BLOCKS ── */
+  .content-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.datasheet-landing .content-card {
+    border: 1px solid var(--ib-sand-60);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    background: var(--ib-white);
+  }
+.datasheet-landing .content-card h3 { font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ib-dark-gray); margin-bottom: 8px; }
+.datasheet-landing .content-card p, .datasheet-landing .content-card li { font-size: 13px; font-weight: 300; color: var(--ib-mid-gray); line-height: 1.6; }
+.datasheet-landing .content-card ul { margin-left: 1rem; }
+.datasheet-landing .keyword-line { margin-top: 1.5rem; font-size: 13px; font-weight: 300; color: var(--ib-mid-gray); line-height: 1.7; }
+.datasheet-landing .keyword-line strong { font-weight: 900; color: var(--ib-dark-gray); }
+.datasheet-landing .faq-list { display: grid; gap: 12px; }
+.datasheet-landing .faq-item { border: 1px solid var(--ib-sand-60); border-radius: var(--radius); background: var(--ib-white); padding: 1.25rem 1.5rem; }
+.datasheet-landing .faq-item h3 { font-size: 14px; font-weight: 900; color: var(--ib-dark-gray); margin-bottom: 6px; }
+.datasheet-landing .faq-item p { font-size: 13px; font-weight: 300; color: var(--ib-mid-gray); line-height: 1.6; }
+.datasheet-landing /* -- SOLUTION OVERVIEW / QUICK FACTS -- */
+  .quick-facts-section { background: var(--ib-white); }
+.datasheet-landing .quick-facts-title { margin-bottom: 14px; }
+.datasheet-landing .quick-facts-rule { height: 1px; background: var(--ib-sand-100); width: 58%; margin-bottom: 2.5rem; }
+.datasheet-landing .quick-facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.datasheet-landing .quick-facts-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.datasheet-landing .quick-fact-block h3 { font-size: 16px; font-weight: 900; color: var(--ib-dark-gray); margin-bottom: 1.5rem; }
+.datasheet-landing .quick-fact-block p { font-size: 16px; font-weight: 300; color: var(--ib-dark-gray); line-height: 1.55; }
+.datasheet-landing .quick-fact-block strong { font-weight: 900; }
+.datasheet-landing .quick-facts-list ul { list-style: none; margin: 0; padding: 0; }
+.datasheet-landing .quick-facts-list li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 16px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ib-sand-100);
+    line-height: 1.55;
+  }
+.datasheet-landing .quick-facts-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--ib-sand-100);
+    font-weight: 900;
+  }
+.datasheet-landing .quick-facts-context {
+    margin-top: 2rem;
+    max-width: 760px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--ib-mid-gray);
+    line-height: 1.65;
+  }
+@media (max-width: 720px) {
+.datasheet-landing .layouts-grid-new { grid-template-columns: 1fr 1fr; }
+.datasheet-landing .edition-grid, .datasheet-landing .layouts-grid, .datasheet-landing .steps, .datasheet-landing .benefits-grid, .datasheet-landing .ladder, .datasheet-landing .content-grid, .datasheet-landing .quick-facts-grid, .datasheet-landing .quick-facts-copy { grid-template-columns: 1fr; }
+.datasheet-landing .quick-facts-rule { width: 100%; }
+.datasheet-landing .step { border-right: none; border-bottom: 1px solid var(--ib-sand-60); }
+.datasheet-landing .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+.datasheet-landing .hero-visual { min-height: auto; }
+.datasheet-landing .hero-template-composite { width: min(560px, 100%); }
+.datasheet-landing .hero h1 { font-size: 28px; }
+.datasheet-landing .cta-banner { flex-direction: column; }
+.datasheet-landing nav .nav-links { display: none; }
+  
+}
+
+
+/* WordPress/Elementor isolation helpers */
+.datasheet-landing {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow-x: hidden;
+  font-family: 'Roboto', Arial, sans-serif !important;
+}
+.datasheet-landing h1,
+.datasheet-landing h2,
+.datasheet-landing h3,
+.datasheet-landing p,
+.datasheet-landing a,
+.datasheet-landing li,
+.datasheet-landing td,
+.datasheet-landing th {
+  font-family: 'Roboto', Arial, sans-serif !important;
+}
+.datasheet-landing img,
+.datasheet-landing svg {
+  max-width: 100%;
+  height: auto;
+}
+.datasheet-landing a {
+  text-decoration: none;
+}
+</style>
+
+<!-- is:inline ist hier zwingend: das Markup nutzt inline onclick-Handler
+     (openModal/closeModal/...). Ohne is:inline wuerde Astro das Skript als
+     ES-Modul buendeln, die Funktionen waeren dann nicht global und alle
+     Klicks im Layout-Vergleich blieben wirkungslos. -->
+<script is:inline>
+const layouts = [
+  {
+    tag: 'Layout 1 of 4',
+    title: 'Vertical — Image + Benefits + Specs',
+    hint: 'Best for: Consumer electronics, B2C products, feature-rich items',
+    img: '/images/datasheet/ds-b1f56e9d.jpg',
+    structure: ['Logo & product title in header', 'Product image & benefit list', 'Certification badges row', 'Product description paragraph', 'Full-width specifications table', 'Branded footer with date'],
+    usecases: ['Laptops & electronics', 'Consumer goods', 'Products with key selling points', 'B2C catalogs and retail sheets']
+  },
+  {
+    tag: 'Layout 2 of 4',
+    title: 'Horizontal — 3-Column Spec Sheet',
+    hint: 'Best for: Technical products with many specification categories',
+    img: '/images/datasheet/ds-4b90c983.jpg',
+    structure: ['Full-width header with product name + logo', '3 equal columns for specification groups', 'Color-coded section headings', 'product image & certification badges row', 'Notes section in right column', 'footer bar'],
+    usecases: ['Technical datasheets', 'Industrial equipment', 'Products with 20+ spec values', 'Landscape / A4 horizontal output']
+  },
+  {
+    tag: 'Layout 3 of 4',
+    title: 'Image-focused — Large Visual + Ratings',
+    hint: 'Best for: Products where visual appearance and performance metrics matter',
+    img: '/images/datasheet/ds-59e02aba.jpg',
+    structure: ['Header with eyebrow + bold product name', 'Large product image (left column)', 'Certification badges below image', 'Performance rating bars', 'Key features table'],
+    usecases: ['Automotive & tire products', 'Sports & outdoor equipment', 'Products with rated performance criteria', 'Technical + visual-heavy sheets']
+  },
+  {
+    tag: 'Layout 4 of 4',
+    title: 'Table-oriented — Product Family Overview',
+    hint: 'Best for: Product families / variants with structured comparison data',
+    img: '/images/datasheet/ds-293035b7.jpg',
+    structure: ['Large bold product title at top', 'Product image (left) + meta info + sub-images (right)', 'CE / certification marks', 'Full-width multi-column data table', 'Alternating row colors for readability', 'Dark branded footer with company logo'],
+    usecases: ['Product families with multiple variants', 'Industrial / B2B products', 'Items with part numbers and specs table', 'Pump, valve, machinery datasheets']
+  }
+];
+
+let current = 0;
+
+function openModal(index) {
+  current = index;
+  renderModal();
+  document.getElementById('layout-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('layout-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function prevModal() { current = (current + 3) % 4; renderModal(); }
+function nextModal() { current = (current + 1) % 4; renderModal(); }
+
+function renderModal() {
+  const l = layouts[current];
+  document.getElementById('modal-tag').textContent = l.tag;
+  document.getElementById('modal-title').textContent = l.title;
+  document.getElementById('modal-hint').textContent = l.hint;
+  document.getElementById('modal-img').src = l.img;
+  document.getElementById('modal-img').alt = l.title;
+  document.getElementById('modal-counter').textContent = (current + 1) + ' / 4';
+
+  const mkList = (items, icon, color) => items.map(i =>
+    `<li style="font-size:13px;font-weight:300;color:#313131;padding:6px 0;border-bottom:1px solid #e6dcc8;display:flex;gap:8px;line-height:1.4;">
+      <span style="color:${color};font-weight:900;flex-shrink:0;">${icon}</span>${i}
+    </li>`
+  ).join('');
+
+  document.getElementById('modal-info-left').innerHTML = `
+    <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;color:#d31145;margin-bottom:10px;">Structure</div>
+    <ul style="list-style:none;padding:0;margin:0;">${mkList(l.structure, '→', '#d31145')}</ul>`;
+
+  document.getElementById('modal-info-right').innerHTML = `
+    <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;color:#d31145;margin-bottom:10px;">Ideal use cases</div>
+    <ul style="list-style:none;padding:0;margin:0;">${mkList(l.usecases, '✓', '#0f7b6c')}</ul>`;
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('layout-modal').style.display || document.getElementById('layout-modal').style.display === 'none') return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowRight') nextModal();
+  if (e.key === 'ArrowLeft') prevModal();
+});
+</script>
