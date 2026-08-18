@@ -105,6 +105,13 @@ h4 {
   color: var(--ci-primary);
 }
 
+/* Im Original haben Absaetze keinen eigenen Aussenabstand - der gesamte
+   vertikale Rhythmus kommt aus den Abstandshaltern (siehe .pt-spacer).
+   Beides zusammen wuerde die Abstaende verdoppeln. */
+article p {
+  margin-block: 0;
+}
+
 /* ── Lesebreite ──────────────────────────────────────────────────────
    Durchgehender Fliesstext wird auf Lesebreite begrenzt, waehrend Bilder,
    Spalten und farbige Baender die volle Containerbreite behalten. Nur direkte
@@ -1021,15 +1028,19 @@ main {
    Der Hintergrund laeuft ueber die volle Fensterbreite (Full-Bleed aus dem
    zentrierten Inhaltscontainer heraus), der Inhalt bleibt in Satzbreite. */
 .pt-section {
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
-  padding: 3.5rem 1.5rem;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+  /* Randloser Hintergrund. Bewusst NICHT ueber 100vw, weil das die
+     Scrollbalkenbreite mitzaehlt und dadurch auf Windows einen waagerechten
+     Scrollbalken erzeugt. Die negativen Aussenabstaende beziehen sich auf die
+     Elternbreite und sind dadurch scrollbalken-sicher. */
+  margin-inline: calc(50% - 50vw);
+  padding-block: var(--ci-section-pad);
+  padding-inline: calc(50vw - 50% + 1.5rem);
+  margin-block: var(--ci-space-lg);
+}
+
+/* Abstandshalter darf nicht durch benachbarte Aussenabstaende zusammenfallen. */
+.pt-spacer {
+  flex-shrink: 0;
 }
 
 .pt-section__inner {
@@ -1110,13 +1121,9 @@ main {
 }
 
 .pt-hero-band {
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
-  padding: 1.75rem 1.5rem 3rem;
+  /* Gleiche scrollbalken-sichere Technik wie .pt-section. */
+  margin-inline: calc(50% - 50vw);
+  padding: 1.75rem calc(50vw - 50% + 1.5rem) 3rem;
   margin-top: -1px;
   margin-bottom: 2rem;
   /* Gleicher Farbverlauf wie der Hero-Bereich der Startseite, statt der

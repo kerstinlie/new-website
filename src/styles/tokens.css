@@ -59,6 +59,25 @@
      verliert das Auge beim Zeilenwechsel den Anschluss. */
   --ci-measure: 70ch;
 
+  /* ── Abstandsskala ──
+     Abgeleitet aus den 4.643 Spacer-Widgets der Originalseite. Haeufigkeit:
+     25px (1321x), 50px (1604x als Standardwert), 20px (429x), 100px (363x),
+     30px (265x), 15px (177x), 75px (110x), 150px (64x).
+     Im Original entsteht Abstand ausschliesslich ueber solche Abstandshalter -
+     Absaetze selbst haben dort keinen Aussenabstand. */
+  --ci-space-xs: 15px;
+  --ci-space-sm: 20px;
+  --ci-space-md: 25px;
+  --ci-space-lg: 50px;
+  --ci-space-xl: 75px;
+  --ci-space-2xl: 100px;
+  --ci-space-3xl: 150px;
+
+  /* Sektions-Innenabstand: im Original ueberwiegend 50px oben/unten,
+     bei grosszuegigen Abschnitten 100px. */
+  --ci-section-pad: 50px;
+  --ci-section-pad-lg: 100px;
+
   /* ── Umbruchpunkte (Elementor-Standard) ── */
   --ci-bp-tablet: 1024px;
   --ci-bp-mobile: 767px;

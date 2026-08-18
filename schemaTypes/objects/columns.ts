@@ -49,6 +49,7 @@ export default defineType({
                 { type: 'gatedForm' },
                 { type: 'quoteCarousel' },
                 { type: 'divider' },
+                { type: 'spacer' },
               ],
             }),
           ],

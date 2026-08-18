@@ -76,6 +76,7 @@ export default defineType({
         defineArrayMember({ type: 'gatedForm' }),
         defineArrayMember({ type: 'quoteCarousel' }),
         defineArrayMember({ type: 'divider' }),
+        defineArrayMember({ type: 'spacer' }),
       ],
     }),
   ],

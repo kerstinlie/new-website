@@ -52,5 +52,6 @@ export default defineType({
     defineArrayMember({ type: 'quoteCarousel' }),
     defineArrayMember({ type: 'divider' }),
     defineArrayMember({ type: 'section' }),
+    defineArrayMember({ type: 'spacer' }),
   ],
 });

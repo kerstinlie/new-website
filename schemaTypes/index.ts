@@ -11,6 +11,7 @@ import gatedForm from './objects/gatedForm';
 import quoteCarousel from './objects/quoteCarousel';
 import divider from './objects/divider';
 import section from './objects/section';
+import spacer from './objects/spacer';
 
 export const schemaTypes = [
   page,
@@ -26,4 +27,5 @@ export const schemaTypes = [
   quoteCarousel,
   divider,
   section,
+  spacer,
 ];

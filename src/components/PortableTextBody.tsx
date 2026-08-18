@@ -374,6 +374,13 @@ const components: PortableTextComponents = {
       );
     },
     divider: () => <hr className="pt-divider" />,
+    // Abstandshalter aus dem Original - traegt dort den kompletten vertikalen
+    // Rhythmus, weil Absaetze selbst keinen Aussenabstand haben.
+    spacer: ({ value }) => {
+      const size = typeof value?.size === 'number' ? value.size : 25;
+      if (size <= 0) return null;
+      return <div className="pt-spacer" style={{ height: `${size}px` }} aria-hidden="true" />;
+    },
     quoteCarousel: ({ value }) => {
       const items = value?.items || [];
       if (!items.length) return null;
