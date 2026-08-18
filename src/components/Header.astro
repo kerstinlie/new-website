@@ -47,7 +47,19 @@ function hrefFor(node: { slug: string | null; href?: string | null }) {
                 <>
                   <a href={hrefFor(child)}>{child.title}</a>
                   {child.children && child.children.map((grandchild) => (
-                    <a href={hrefFor(grandchild)} style="padding-left: 1.75rem;">{grandchild.title}</a>
+                    <>
+                      {/* Zwischenebenen ohne eigene Seite (z.B. "Automation",
+                          "Publication Management") sind reine Gruppentitel und
+                          sollen nicht als Link ins Leere zeigen. */}
+                      {grandchild.slug || grandchild.href ? (
+                        <a href={hrefFor(grandchild)} class="site-nav__dropdown-l2">{grandchild.title}</a>
+                      ) : (
+                        <span class="site-nav__dropdown-group">{grandchild.title}</span>
+                      )}
+                      {grandchild.children && grandchild.children.map((greatgrandchild) => (
+                        <a href={hrefFor(greatgrandchild)} class="site-nav__dropdown-l3">{greatgrandchild.title}</a>
+                      ))}
+                    </>
                   ))}
                 </>
               ))}

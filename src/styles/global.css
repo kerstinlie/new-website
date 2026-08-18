@@ -374,6 +374,39 @@ main {
   text-decoration: none;
 }
 
+/* Einrueckung der Unterebenen im Dropdown (Ebene 2 und 3). */
+.site-nav__dropdown-l2 {
+  padding-left: 1.75rem !important;
+}
+
+.site-nav__dropdown-l3 {
+  padding-left: 2.75rem !important;
+  font-size: 0.85rem !important;
+  color: var(--color-text-muted) !important;
+}
+
+.site-nav__dropdown-l3:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Gruppentitel ohne eigene Seite - sieht wie eine Zwischenueberschrift aus,
+   nicht wie ein anklickbarer Eintrag. */
+.site-nav__dropdown-group {
+  display: block;
+  padding: 0.5rem 1rem 0.25rem 1.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Dropdown darf durch die zusaetzliche Ebene laenger werden. */
+.site-nav__dropdown {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
 .site-nav__lang {
   display: flex;
   gap: 0.5rem;
