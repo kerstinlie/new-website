@@ -1,0 +1,72 @@
+/* ─────────────────────────────────────────────────────────────────────
+   Design-Tokens (CI)
+
+   Quelle: Elementor-Kit der Live-Seite (post-8.css, aus dem HAR-Mitschnitt
+   vom 18.08.2026). Das sind die tatsaechlichen Originalwerte, keine
+   Schaetzungen aus Screenshots.
+
+   Diese Datei ist die einzige Stelle, an der Groessen, Farben und Abstaende
+   definiert werden. Aenderungen hier wirken auf alle Seiten gleichzeitig.
+   ───────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Farben (Elementor Global Colors) ── */
+  --ci-primary: #d31145;          /* e-global-color-primary */
+  --ci-primary-hover: #cb0045;    /* e-global-color-f088ede */
+  --ci-secondary: #0000a0;        /* e-global-color-secondary */
+  --ci-text: #313131;             /* e-global-color-text */
+  --ci-accent: #00a5f7;           /* e-global-color-accent */
+  --ci-sand-dark: #ac9988;        /* e-global-color-522856f - auch Linkfarbe */
+  --ci-sand-light: #f3ebe2;       /* e-global-color-b060b03 - Sektionshintergrund */
+
+  /* ── Typografie ── */
+  --ci-font: 'Roboto', sans-serif;
+
+  --ci-body-size: 18px;
+  --ci-body-weight: 300;
+  --ci-body-line: 25px;
+  --ci-body-spacing: 0.1px;
+  --ci-body-word-spacing: 1px;
+
+  --ci-h1-size: 60px;
+  --ci-h1-line: 62px;
+  --ci-h1-weight: 900;
+  --ci-h1-color: #000000;
+
+  --ci-h2-size: 36px;
+  --ci-h2-line: 40px;
+  --ci-h2-weight: 900;
+  --ci-h2-spacing: -0.6px;
+
+  --ci-h3-size: 28px;
+  --ci-h3-weight: 100;
+
+  --ci-h4-size: 22px;
+  --ci-h4-weight: 300;
+
+  /* Im Original ist <strong> bewusst nur halbfett, nicht fett. */
+  --ci-strong-weight: 500;
+
+  /* ── Layout ── */
+  --ci-container: 1220px;
+  --ci-header-width: 1200px;
+
+  /* Breite Variante fuer Medien (Bildstrecken, Karussells, Vorschaureihen).
+     Gestaffelte Breiten statt einer Breite fuer alles. */
+  --ci-container-wide: 1440px;
+
+  /* Lesebreite fuer durchgehenden Fliesstext. Ab etwa 75-80 Zeichen pro Zeile
+     verliert das Auge beim Zeilenwechsel den Anschluss. */
+  --ci-measure: 70ch;
+
+  /* ── Umbruchpunkte (Elementor-Standard) ── */
+  --ci-bp-tablet: 1024px;
+  --ci-bp-mobile: 767px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --ci-h1-size: 42px;
+    --ci-h1-line: 1em;
+  }
+}

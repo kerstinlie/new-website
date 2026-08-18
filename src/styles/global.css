@@ -1,19 +1,21 @@
+@import './tokens.css';
+
 :root {
-  --color-primary: #d31145;
-  --color-primary-dark: #a80e38;
-  --color-text: #1a1a1a;
-  --color-text-muted: #5c5c5c;
+  /* Bestehende Variablennamen bleiben erhalten, beziehen ihre Werte aber
+     jetzt aus den CI-Tokens - so wirken Korrekturen zentral statt lokal. */
+  --color-primary: var(--ci-primary);
+  --color-primary-dark: var(--ci-primary-hover);
+  --color-text: var(--ci-text);
+  --color-text-muted: var(--ci-sand-dark);
   --color-bg: #ffffff;
   --color-bg-alt: #f7f6f5;
   --color-border: #e5e2e0;
-  --color-sand-30: #f0e6dc;
+  --color-sand-30: var(--ci-sand-light);
   --color-sand-60: #e6dcc8;
-  --font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --font-heading: 'Roboto', var(--font-sans);
-  /* Original-WordPress-Theme nutzt die Bildschirmbreite deutlich staerker aus
-     als eine typische 1200px-Box - auf grossen Bildschirmen wirkte die Seite
-     dadurch sehr schmal/zentriert mit viel Leerraum links/rechts. */
-  --max-width: 1600px;
+  --font-sans: var(--ci-font);
+  --font-heading: var(--ci-font);
+  /* Originalwert aus dem Elementor-Kit (elementor-section-boxed). */
+  --max-width: var(--ci-container);
 }
 
 * {
@@ -27,18 +29,30 @@ body {
 }
 
 body {
-  font-family: var(--font-sans);
-  color: var(--color-text);
+  font-family: var(--ci-font);
+  color: var(--ci-text);
   background: var(--color-bg);
-  line-height: 1.6;
+  font-size: var(--ci-body-size);
+  font-weight: var(--ci-body-weight);
+  line-height: var(--ci-body-line);
+  letter-spacing: var(--ci-body-spacing);
+  word-spacing: var(--ci-body-word-spacing);
+}
+
+/* Im Original ist Fettschrift bewusst nur halbfett. */
+strong,
+b {
+  font-weight: var(--ci-strong-weight);
 }
 
 a {
-  color: var(--color-primary);
-  text-decoration: none;
+  color: var(--ci-sand-dark);
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 a:hover {
+  color: var(--ci-primary);
   text-decoration: underline;
 }
 
@@ -54,43 +68,91 @@ img {
   padding: 0 1.5rem;
 }
 
+/* ── Ueberschriften: exakte Werte aus dem Elementor-Kit ── */
 h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-heading);
-  line-height: 1.25;
-  font-weight: 700;
+  font-family: var(--ci-font);
 }
 
-/* WordPress zeigt Sektions-Ueberschriften im Content (H2) durchgehend in
-   Grossbuchstaben mit einer Trennlinie darunter (z.B. "HIGHLIGHTS",
-   "PUBLISH IN JUST THREE STEPS", "WHY CHOOSE..."). */
-article h2 {
+h1 {
+  font-size: var(--ci-h1-size);
+  line-height: var(--ci-h1-line);
+  font-weight: var(--ci-h1-weight);
+  color: var(--ci-h1-color);
   text-transform: uppercase;
-  letter-spacing: 0.01em;
-  padding-bottom: 0.65rem;
+}
+
+h2 {
+  font-size: var(--ci-h2-size);
+  line-height: var(--ci-h2-line);
+  font-weight: var(--ci-h2-weight);
+  letter-spacing: var(--ci-h2-spacing);
+  color: var(--ci-text);
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: var(--ci-h3-size);
+  font-weight: var(--ci-h3-weight);
+  color: var(--ci-text);
+}
+
+h4 {
+  font-size: var(--ci-h4-size);
+  font-weight: var(--ci-h4-weight);
+  color: var(--ci-primary);
+}
+
+/* ── Lesebreite ──────────────────────────────────────────────────────
+   Durchgehender Fliesstext wird auf Lesebreite begrenzt, waehrend Bilder,
+   Spalten und farbige Baender die volle Containerbreite behalten. Nur direkte
+   Kinder, damit Text in Spalten und Karten unberuehrt bleibt - dort ist die
+   Breite bereits durch das Layout vorgegeben. */
+article > p,
+article > ul,
+article > ol,
+.pt-section__inner > p,
+.pt-section__inner > ul,
+.pt-section__inner > ol {
+  max-width: var(--ci-measure);
+}
+
+/* Zentriert gesetzte Absaetze muessen auch als Block zentriert werden,
+   sonst kleben sie trotz zentrierter Schrift am linken Rand. */
+article > p[style*='center'],
+.pt-section__inner > p[style*='center'] {
+  margin-inline: auto;
+}
+
+/* ── Breite Medien-Elemente ──────────────────────────────────────────
+   Bildstrecken, Karussells und Vorschaureihen duerfen ueber die Lesebreite
+   hinaus - sie profitieren von Flaeche, waehrend Text darunter leidet. */
+.pt-columns--thumb-grid,
+.quote-carousel,
+.pt-logo-strip,
+.pt-section--w-wide > .pt-section__inner {
+  width: min(var(--ci-container-wide), calc(100vw - 3rem));
+  max-width: none;
+  margin-inline: auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+article h2 {
   margin-top: 2.25rem;
   margin-bottom: 1.25rem;
-  border-bottom: 1px solid var(--color-border);
 }
 
 article h2:first-child {
   margin-top: 0;
 }
 
-/* Zwischenueberschriften wie "Real Business Impact:" sind im Original
-   duenn, in Sandbraun und mit einer feinen Linie darunter - nicht fett/
-   schwarz wie ein normales H3. */
 article h3 {
-  font-weight: 400;
-  color: #aa9687;
-  font-size: 1.65rem;
-  letter-spacing: 0.01em;
-  padding-bottom: 0.65rem;
-  margin-top: 2.25rem;
-  margin-bottom: 1.25rem;
-  border-bottom: 1px solid var(--color-sand-60);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 article h3:first-child {

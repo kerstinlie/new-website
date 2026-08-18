@@ -33,6 +33,21 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'width',
+      title: 'Inhaltsbreite',
+      type: 'string',
+      initialValue: 'normal',
+      description:
+        'Normal ist die Standardbreite. Breit eignet sich für Bildstrecken, Karussells und Vorschaureihen - nicht für Fließtext.',
+      options: {
+        list: [
+          { title: 'Normal (1220px)', value: 'normal' },
+          { title: 'Breit (1440px)', value: 'wide' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       name: 'spacing',
       title: 'Innenabstand',
       type: 'string',

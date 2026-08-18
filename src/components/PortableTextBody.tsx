@@ -190,8 +190,9 @@ const components: PortableTextComponents = {
       if (!blocks.length) return null;
       const variant = value?.variant || 'sand';
       const spacing = value?.spacing || 'normal';
+      const width = value?.width || 'normal';
       return (
-        <div className={`pt-section pt-section--${variant} pt-section--sp-${spacing}`}>
+        <div className={`pt-section pt-section--${variant} pt-section--sp-${spacing} pt-section--w-${width}`}>
           <div className="pt-section__inner">
             <PortableText
               value={groupImageStrips(splitLeadingBoldBlocks(dropDividerAfterHeading(dedupeConsecutiveBlocks(blocks))))}
