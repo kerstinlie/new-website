@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   // sonst beanspruchen zwei Routen denselben Pfad.
   // Bewusst INNERHALB der Funktion: Astro fuehrt getStaticPaths isoliert aus,
   // Variablen aus dem umgebenden Frontmatter sind dort nicht sichtbar.
-  const customPageSlugs = new Set(['datasheet-automation-app']);
+  const customPageSlugs = new Set(['datasheet-automation-app', 'product-publication-wizard']);
 
   const pages = await getAllPages();
   return pages

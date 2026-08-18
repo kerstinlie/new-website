@@ -77,6 +77,7 @@ export default defineType({
         defineArrayMember({ type: 'quoteCarousel' }),
         defineArrayMember({ type: 'divider' }),
         defineArrayMember({ type: 'spacer' }),
+        defineArrayMember({ type: 'flipBoxGrid' }),
       ],
     }),
   ],

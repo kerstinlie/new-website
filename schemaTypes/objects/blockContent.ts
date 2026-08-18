@@ -53,5 +53,6 @@ export default defineType({
     defineArrayMember({ type: 'divider' }),
     defineArrayMember({ type: 'section' }),
     defineArrayMember({ type: 'spacer' }),
+    defineArrayMember({ type: 'flipBoxGrid' }),
   ],
 });

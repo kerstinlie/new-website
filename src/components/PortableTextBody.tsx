@@ -1,6 +1,7 @@
 import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import { urlFor } from '../lib/sanity';
 import QuoteCarousel from './QuoteCarousel';
+import FlipBoxGrid from './FlipBoxGrid';
 
 // Sprache der aktuell gerenderten Seite. Wird von PortableTextBody() ganz zu
 // Beginn des Renders gesetzt (synchron, daher unproblematisch fuer SSR) und
@@ -380,6 +381,11 @@ const components: PortableTextComponents = {
       const size = typeof value?.size === 'number' ? value.size : 25;
       if (size <= 0) return null;
       return <div className="pt-spacer" style={{ height: `${size}px` }} aria-hidden="true" />;
+    },
+    flipBoxGrid: ({ value }) => {
+      const items = value?.items || [];
+      if (!items.length) return null;
+      return <FlipBoxGrid items={items} />;
     },
     quoteCarousel: ({ value }) => {
       const items = value?.items || [];

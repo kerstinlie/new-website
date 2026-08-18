@@ -12,6 +12,7 @@ import quoteCarousel from './objects/quoteCarousel';
 import divider from './objects/divider';
 import section from './objects/section';
 import spacer from './objects/spacer';
+import flipBoxGrid from './objects/flipBoxGrid';
 
 export const schemaTypes = [
   page,
@@ -28,4 +29,5 @@ export const schemaTypes = [
   divider,
   section,
   spacer,
+  flipBoxGrid,
 ];

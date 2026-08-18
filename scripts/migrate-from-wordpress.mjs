@@ -93,6 +93,26 @@ async function resolveBody(blocks) {
         });
       }
       // wenn Upload fehlschlaegt, Block einfach auslassen statt Fehler zu werfen
+    } else if (block._type === 'flipBoxGrid') {
+      // Jede Karte kann bis zu drei Bilder tragen (Grafik, Hintergrund vorne,
+      // Hintergrund hinten) -> alle als echte Sanity-Referenzen aufloesen.
+      const resolvedItems = [];
+      for (const item of block.items || []) {
+        const resolvedItem = { ...item };
+        for (const feld of ['frontImage', 'frontBackground', 'backBackground']) {
+          const bild = item[feld];
+          if (bild && bild._type === 'externalImage') {
+            const assetId = await uploadImage(bild.url);
+            if (assetId) {
+              resolvedItem[feld] = { _type: 'image', asset: { _type: 'reference', _ref: assetId } };
+            } else {
+              delete resolvedItem[feld];
+            }
+          }
+        }
+        resolvedItems.push(resolvedItem);
+      }
+      resolved.push({ ...block, items: resolvedItems });
     } else if (block._type === 'section') {
       // Abschnitte umschliessen wieder ganze Blocklisten -> rekursiv aufloesen,
       // sonst blieben darin liegende Bilder unaufgeloest.

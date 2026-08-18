@@ -50,6 +50,7 @@ export default defineType({
                 { type: 'quoteCarousel' },
                 { type: 'divider' },
                 { type: 'spacer' },
+                { type: 'flipBoxGrid' },
               ],
             }),
           ],
